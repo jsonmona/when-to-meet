@@ -1,14 +1,14 @@
 {
-  "name": "when-to-meet",
-  "version": "1.0.0",
+  "name": "@when-to-meet/back",
+  "version": "0.0.0",
+  "private": true,
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
   "author": "",
   "license": "BSD-2-Clause",
-  "description": "",
-  "workspaces": [
-    "packages/*"
-  ]
+  "description": ""
 }
