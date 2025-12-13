@@ -1,27 +1,9 @@
 import { prisma } from './prisma.ts';
-import { LocalDate, convert, nativeJs } from 'js-joda';
-import crypto from 'crypto';
-import util from 'util';
-
-const randomBytesAsync = util.promisify(crypto.randomBytes);
-
-async function generateNonce() {
-  const bytes = await randomBytesAsync(8);
-  return bytes.readUInt8();
-}
-
-function composeKey({ id, nonce }: { id: number; nonce: number }) {
-  return `${id}-${nonce}`;
-}
-
-function decomposeKey(key: string) {
-  const [id, nonce] = key.split('-');
-
-  return {
-    id: parseInt(id!),
-    nonce: parseInt(nonce!),
-  };
-}
+import type {
+  AppointmentModel,
+  AppointmentUpdateInput,
+} from '../prisma-generated/models.ts';
+import type { AppointmentInfo } from '../model/appointment.ts';
 
 export interface IAppointmentRepository {
   /**
@@ -32,6 +14,7 @@ export interface IAppointmentRepository {
   /**
    * 새로운 약속을 생성함
    *
+   * @param nonce 랜덤 토큰값
    * @param name 약속의 제목
    * @param startDate 시작날짜 (포함)
    * @param endDate 종료날짜 (포함)
@@ -41,10 +24,18 @@ export interface IAppointmentRepository {
    * @throws endDate < startDate라면 예외 발생
    */
   createAppointment(
+    nonce: number,
     name: string,
-    startDate: LocalDate,
-    endDate: LocalDate
-  ): Promise<IAppointmentValue>;
+    startDate: Date,
+    endDate: Date
+  ): Promise<AppointmentModel>;
+
+  /**
+   * 약속의 기본 정보를 불러옴
+   *
+   * @returns 약속 정보
+   */
+  getAppointment(id: number, nonce: number): Promise<AppointmentInfo | null>;
 
   /**
    * 약속의 기본 정보를 업데이트함
@@ -52,15 +43,16 @@ export interface IAppointmentRepository {
    * @param updates 업데이트할 내용. key는 항상 포함되어 있어야 함.
    * @returns 업데이트된 약속 값
    */
-  updateAppointment(updates: IAppointmentValue): Promise<void>;
-}
+  updateAppointment(
+    id: number,
+    nonce: number,
+    updates: Omit<AppointmentUpdateInput, 'nonce'>
+  ): Promise<void>;
 
-//TODO: 다른곳으로 분리
-export interface IAppointmentValue {
-  key: string;
-  name: string;
-  startDate: LocalDate;
-  endDate: LocalDate;
+  /**
+   * 약속을 삭제함
+   */
+  deleteAppointment(id: number, nonce: number): Promise<void>;
 }
 
 export class AppointmentRepository implements IAppointmentRepository {
@@ -71,40 +63,77 @@ export class AppointmentRepository implements IAppointmentRepository {
   }
 
   async createAppointment(
+    nonce: number,
     name: string,
-    startDate: LocalDate,
-    endDate: LocalDate
-  ): Promise<IAppointmentValue> {
-    if (endDate.isBefore(startDate))
+    startDate: Date,
+    endDate: Date
+  ): Promise<AppointmentModel> {
+    if (endDate.getTime() < startDate.getTime())
       throw new Error('End date must be after start date');
 
-    const data = await prisma.appointment.create({
+    return await prisma.appointment.create({
       data: {
+        nonce,
         name,
-        nonce: await generateNonce(),
-        startDate: convert(startDate).toDate(),
-        endDate: convert(endDate).toDate(),
+        startDate,
+        endDate,
+      },
+    });
+  }
+
+  async getAppointment(
+    id: number,
+    nonce: number
+  ): Promise<AppointmentInfo | null> {
+    const data = await prisma.appointment.findUnique({
+      where: { id, nonce },
+      include: {
+        participants: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        tags: {
+          select: {
+            tag: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
       },
     });
 
+    if (data === null) {
+      return null;
+    }
+
     return {
-      key: composeKey(data),
       name: data.name,
-      startDate: LocalDate.from(nativeJs(data.startDate)),
-      endDate: LocalDate.from(nativeJs(data.endDate)),
+      startDate: data.startDate,
+      endDate: data.endDate,
+      participants: data.participants,
+      tags: data.tags.map((x) => x.tag),
     };
   }
 
-  async updateAppointment(updates: IAppointmentValue): Promise<void> {
-    const { id, nonce } = decomposeKey(updates.key);
-
+  async updateAppointment(
+    id: number,
+    nonce: number,
+    updates: Omit<AppointmentUpdateInput, 'nonce'>
+  ): Promise<void> {
     await prisma.appointment.update({
       where: { id, nonce },
-      data: {
-        name: updates.name,
-        startDate: convert(updates.startDate).toDate(),
-        endDate: convert(updates.endDate).toDate(),
-      },
+      data: updates,
+    });
+  }
+
+  async deleteAppointment(id: number, nonce: number): Promise<void> {
+    await prisma.appointment.delete({
+      where: { id, nonce },
     });
   }
 }
