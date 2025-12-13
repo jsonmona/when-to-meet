@@ -1,4 +1,5 @@
 import z from 'zod';
+import { isoDate } from '../../codec/datetime.ts';
 
 // GET /api/appointment/:key/calendar/:year/:month
 export const GetAppointmentCalendarMonthResponse = z.object({
@@ -32,5 +33,5 @@ export const UpdateAppointmentCalendarRequest = z.object({
    * 위 예시에서는 29일의 태그를 초기화하고, 30일에 태그 1과 2를 달았음.
    * 30일에 기존에 있던 태그 중 수정하고자 하는 참가자가 기존에 단 태그는 모두 지워지고 1과 2만 남음.
    */
-  tags: z.array(z.tuple([z.iso.date(), z.array(z.string())])),
+  tags: z.array(z.tuple([isoDate, z.array(z.string())])),
 });

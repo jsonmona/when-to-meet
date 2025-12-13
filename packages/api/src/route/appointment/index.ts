@@ -1,5 +1,7 @@
 import z from 'zod';
 import { Participant } from '../../types/participant.ts';
+import { Tag } from '../../types/tag.ts';
+import { isoDate } from '../../codec/datetime.ts';
 
 export * from './calendar.ts';
 
@@ -11,8 +13,8 @@ export const CountResponse = z.object({
 // POST /api/appointment
 export const CreateAppointmentRequest = z.object({
   name: z.string().max(80),
-  startDate: z.iso.date(),
-  endDate: z.iso.date(),
+  startDate: isoDate,
+  endDate: isoDate,
 });
 
 export const CreateAppointmentResponse = z.object({
@@ -21,15 +23,15 @@ export const CreateAppointmentResponse = z.object({
 
 // GET /api/appointment/:key
 export const GetAppointmentResponse = z.object({
-  key: z.string(),
   name: z.string(),
-  startDate: z.iso.date(),
-  endDate: z.iso.date(),
+  startDate: isoDate,
+  endDate: isoDate,
 
+  tags: z.array(Tag),
   participants: z.array(Participant),
 });
 
 // PUT /api/appointment/:key  (no response body)
-export const UpdateAppointmentRequest = CreateAppointmentRequest.partial();
+export const UpdateAppointmentRequest = CreateAppointmentRequest;
 
 // DELETE /api/appointment/:key  (no request & response body)
