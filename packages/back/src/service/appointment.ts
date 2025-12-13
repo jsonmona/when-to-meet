@@ -18,7 +18,7 @@ function composeKey({ id, nonce }: { id: number; nonce: number }) {
   return `${id}-${nonce}`;
 }
 
-function decomposeKey(key: string) {
+export function decomposeKey(key: string) {
   const [id, nonce] = key.split('-');
 
   return {
