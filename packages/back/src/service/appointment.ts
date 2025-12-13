@@ -5,7 +5,6 @@ import {
   appointmentRepository,
   type IAppointmentRepository,
 } from '../repository/appointment.ts';
-import type { deleteAppointment } from '../controller/appointment.ts';
 import type { AppointmentInfo } from '../model/appointment.ts';
 
 const randomBytesAsync = util.promisify(crypto.randomBytes);

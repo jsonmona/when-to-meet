@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 import z from 'zod';
-import { LocalDate, DateTimeFormatter, nativeJs } from 'js-joda';
+import { LocalDate, nativeJs } from 'js-joda';
 import { appointmentService } from '../service/appointment.ts';
 import {
   CountResponse,
