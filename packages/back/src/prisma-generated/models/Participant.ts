@@ -32,22 +32,22 @@ export type ParticipantAvgAggregateOutputType = {
 }
 
 export type ParticipantSumAggregateOutputType = {
-  id: number | null
-  appointmentId: number | null
+  id: bigint | null
+  appointmentId: bigint | null
 }
 
 export type ParticipantMinAggregateOutputType = {
-  id: number | null
+  id: bigint | null
   name: string | null
-  appointmentId: number | null
+  appointmentId: bigint | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type ParticipantMaxAggregateOutputType = {
-  id: number | null
+  id: bigint | null
   name: string | null
-  appointmentId: number | null
+  appointmentId: bigint | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -184,9 +184,9 @@ export type ParticipantGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 export type ParticipantGroupByOutputType = {
-  id: number
+  id: bigint
   name: string
-  appointmentId: number
+  appointmentId: bigint
   createdAt: Date
   updatedAt: Date
   _count: ParticipantCountAggregateOutputType | null
@@ -215,9 +215,9 @@ export type ParticipantWhereInput = {
   AND?: Prisma.ParticipantWhereInput | Prisma.ParticipantWhereInput[]
   OR?: Prisma.ParticipantWhereInput[]
   NOT?: Prisma.ParticipantWhereInput | Prisma.ParticipantWhereInput[]
-  id?: Prisma.IntFilter<"Participant"> | number
+  id?: Prisma.BigIntFilter<"Participant"> | bigint | number
   name?: Prisma.StringFilter<"Participant"> | string
-  appointmentId?: Prisma.IntFilter<"Participant"> | number
+  appointmentId?: Prisma.BigIntFilter<"Participant"> | bigint | number
   createdAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   appointment?: Prisma.XOR<Prisma.AppointmentScalarRelationFilter, Prisma.AppointmentWhereInput>
@@ -236,12 +236,12 @@ export type ParticipantOrderByWithRelationInput = {
 }
 
 export type ParticipantWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: bigint | number
   AND?: Prisma.ParticipantWhereInput | Prisma.ParticipantWhereInput[]
   OR?: Prisma.ParticipantWhereInput[]
   NOT?: Prisma.ParticipantWhereInput | Prisma.ParticipantWhereInput[]
   name?: Prisma.StringFilter<"Participant"> | string
-  appointmentId?: Prisma.IntFilter<"Participant"> | number
+  appointmentId?: Prisma.BigIntFilter<"Participant"> | bigint | number
   createdAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   appointment?: Prisma.XOR<Prisma.AppointmentScalarRelationFilter, Prisma.AppointmentWhereInput>
@@ -265,14 +265,15 @@ export type ParticipantScalarWhereWithAggregatesInput = {
   AND?: Prisma.ParticipantScalarWhereWithAggregatesInput | Prisma.ParticipantScalarWhereWithAggregatesInput[]
   OR?: Prisma.ParticipantScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ParticipantScalarWhereWithAggregatesInput | Prisma.ParticipantScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Participant"> | number
+  id?: Prisma.BigIntWithAggregatesFilter<"Participant"> | bigint | number
   name?: Prisma.StringWithAggregatesFilter<"Participant"> | string
-  appointmentId?: Prisma.IntWithAggregatesFilter<"Participant"> | number
+  appointmentId?: Prisma.BigIntWithAggregatesFilter<"Participant"> | bigint | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Participant"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Participant"> | Date | string
 }
 
 export type ParticipantCreateInput = {
+  id?: bigint | number
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -281,15 +282,16 @@ export type ParticipantCreateInput = {
 }
 
 export type ParticipantUncheckedCreateInput = {
-  id?: number
+  id?: bigint | number
   name: string
-  appointmentId: number
+  appointmentId: bigint | number
   createdAt?: Date | string
   updatedAt?: Date | string
   participantMarks?: Prisma.ParticipantMarkUncheckedCreateNestedManyWithoutParticipantInput
 }
 
 export type ParticipantUpdateInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -298,32 +300,33 @@ export type ParticipantUpdateInput = {
 }
 
 export type ParticipantUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  appointmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  appointmentId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participantMarks?: Prisma.ParticipantMarkUncheckedUpdateManyWithoutParticipantNestedInput
 }
 
 export type ParticipantCreateManyInput = {
-  id?: number
+  id?: bigint | number
   name: string
-  appointmentId: number
+  appointmentId: bigint | number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ParticipantUpdateManyMutationInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParticipantUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  appointmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  appointmentId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -440,6 +443,7 @@ export type ParticipantUpdateOneRequiredWithoutParticipantMarksNestedInput = {
 }
 
 export type ParticipantCreateWithoutAppointmentInput = {
+  id?: bigint | number
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -447,7 +451,7 @@ export type ParticipantCreateWithoutAppointmentInput = {
 }
 
 export type ParticipantUncheckedCreateWithoutAppointmentInput = {
-  id?: number
+  id?: bigint | number
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -484,14 +488,15 @@ export type ParticipantScalarWhereInput = {
   AND?: Prisma.ParticipantScalarWhereInput | Prisma.ParticipantScalarWhereInput[]
   OR?: Prisma.ParticipantScalarWhereInput[]
   NOT?: Prisma.ParticipantScalarWhereInput | Prisma.ParticipantScalarWhereInput[]
-  id?: Prisma.IntFilter<"Participant"> | number
+  id?: Prisma.BigIntFilter<"Participant"> | bigint | number
   name?: Prisma.StringFilter<"Participant"> | string
-  appointmentId?: Prisma.IntFilter<"Participant"> | number
+  appointmentId?: Prisma.BigIntFilter<"Participant"> | bigint | number
   createdAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
 }
 
 export type ParticipantCreateWithoutParticipantMarksInput = {
+  id?: bigint | number
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -499,9 +504,9 @@ export type ParticipantCreateWithoutParticipantMarksInput = {
 }
 
 export type ParticipantUncheckedCreateWithoutParticipantMarksInput = {
-  id?: number
+  id?: bigint | number
   name: string
-  appointmentId: number
+  appointmentId: bigint | number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -523,6 +528,7 @@ export type ParticipantUpdateToOneWithWhereWithoutParticipantMarksInput = {
 }
 
 export type ParticipantUpdateWithoutParticipantMarksInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -530,21 +536,22 @@ export type ParticipantUpdateWithoutParticipantMarksInput = {
 }
 
 export type ParticipantUncheckedUpdateWithoutParticipantMarksInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  appointmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  appointmentId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParticipantCreateManyAppointmentInput = {
-  id?: number
+  id?: bigint | number
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ParticipantUpdateWithoutAppointmentInput = {
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -552,7 +559,7 @@ export type ParticipantUpdateWithoutAppointmentInput = {
 }
 
 export type ParticipantUncheckedUpdateWithoutAppointmentInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -560,7 +567,7 @@ export type ParticipantUncheckedUpdateWithoutAppointmentInput = {
 }
 
 export type ParticipantUncheckedUpdateManyWithoutAppointmentInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -632,9 +639,9 @@ export type $ParticipantPayload<ExtArgs extends runtime.Types.Extensions.Interna
     participantMarks: Prisma.$ParticipantMarkPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    id: bigint
     name: string
-    appointmentId: number
+    appointmentId: bigint
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["participant"]>
@@ -1008,9 +1015,9 @@ export interface Prisma__ParticipantClient<T, Null = never, ExtArgs extends runt
  * Fields of the Participant model
  */
 export interface ParticipantFieldRefs {
-  readonly id: Prisma.FieldRef<"Participant", 'Int'>
+  readonly id: Prisma.FieldRef<"Participant", 'BigInt'>
   readonly name: Prisma.FieldRef<"Participant", 'String'>
-  readonly appointmentId: Prisma.FieldRef<"Participant", 'Int'>
+  readonly appointmentId: Prisma.FieldRef<"Participant", 'BigInt'>
   readonly createdAt: Prisma.FieldRef<"Participant", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Participant", 'DateTime'>
 }

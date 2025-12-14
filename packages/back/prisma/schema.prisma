@@ -8,44 +8,41 @@ datasource db {
 }
 
 model Appointment {
-  id        Int      @id @default(autoincrement())
-  nonce     Int      @db.UnsignedTinyInt
+  id        BigInt   @id @default(autoincrement())
+  nonce     Int      @db.UnsignedSmallInt
   name      String   @db.VarChar(80)
   startDate DateTime @db.Date
   endDate   DateTime @db.Date
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  tags         TagsOnAppointments[]
   participants Participant[]
-}
-
-model TagsOnAppointments {
-  appointmentId Int
-  tagId         Int
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  appointment Appointment @relation(fields: [appointmentId], references: [id])
-  tag         Tag         @relation(fields: [tagId], references: [id])
-
-  @@id([appointmentId, tagId])
+  tags         Tag[]
 }
 
 model Tag {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(30)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         BigInt   @id @default(autoincrement())
+  name       String   @unique @db.VarChar(30)
+  nameSearch String   @db.VarChar(90)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  appointmentTags  TagsOnAppointments[]
   participantMarks ParticipantMark[]
+  appointments     Appointment[]
+  defaultTag       DefaultTag?
+}
+
+model DefaultTag {
+  id    Int    @id @default(autoincrement())
+  tagId BigInt @unique
+
+  tag Tag @relation(fields: [tagId], references: [id])
 }
 
 model Participant {
-  id            Int      @id @default(autoincrement())
+  id            BigInt   @id @default(autoincrement())
   name          String   @db.VarChar(30)
-  appointmentId Int
+  appointmentId BigInt
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -54,8 +51,8 @@ model Participant {
 }
 
 model ParticipantMark {
-  participantId Int
-  tagId         Int
+  participantId BigInt
+  tagId         BigInt
   calendarDate  DateTime @db.Date
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt

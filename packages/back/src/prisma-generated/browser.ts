@@ -23,15 +23,15 @@ export * from './enums.ts';
  */
 export type Appointment = Prisma.AppointmentModel
 /**
- * Model TagsOnAppointments
- * 
- */
-export type TagsOnAppointments = Prisma.TagsOnAppointmentsModel
-/**
  * Model Tag
  * 
  */
 export type Tag = Prisma.TagModel
+/**
+ * Model DefaultTag
+ * 
+ */
+export type DefaultTag = Prisma.DefaultTagModel
 /**
  * Model Participant
  * 

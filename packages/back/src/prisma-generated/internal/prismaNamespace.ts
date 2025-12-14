@@ -385,8 +385,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Appointment: 'Appointment',
-  TagsOnAppointments: 'TagsOnAppointments',
   Tag: 'Tag',
+  DefaultTag: 'DefaultTag',
   Participant: 'Participant',
   ParticipantMark: 'ParticipantMark'
 } as const
@@ -404,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "appointment" | "tagsOnAppointments" | "tag" | "participant" | "participantMark"
+    modelProps: "appointment" | "tag" | "defaultTag" | "participant" | "participantMark"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -474,72 +474,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    TagsOnAppointments: {
-      payload: Prisma.$TagsOnAppointmentsPayload<ExtArgs>
-      fields: Prisma.TagsOnAppointmentsFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.TagsOnAppointmentsFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsOnAppointmentsPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.TagsOnAppointmentsFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsOnAppointmentsPayload>
-        }
-        findFirst: {
-          args: Prisma.TagsOnAppointmentsFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsOnAppointmentsPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.TagsOnAppointmentsFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsOnAppointmentsPayload>
-        }
-        findMany: {
-          args: Prisma.TagsOnAppointmentsFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsOnAppointmentsPayload>[]
-        }
-        create: {
-          args: Prisma.TagsOnAppointmentsCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsOnAppointmentsPayload>
-        }
-        createMany: {
-          args: Prisma.TagsOnAppointmentsCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        delete: {
-          args: Prisma.TagsOnAppointmentsDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsOnAppointmentsPayload>
-        }
-        update: {
-          args: Prisma.TagsOnAppointmentsUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsOnAppointmentsPayload>
-        }
-        deleteMany: {
-          args: Prisma.TagsOnAppointmentsDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.TagsOnAppointmentsUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        upsert: {
-          args: Prisma.TagsOnAppointmentsUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TagsOnAppointmentsPayload>
-        }
-        aggregate: {
-          args: Prisma.TagsOnAppointmentsAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateTagsOnAppointments>
-        }
-        groupBy: {
-          args: Prisma.TagsOnAppointmentsGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TagsOnAppointmentsGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.TagsOnAppointmentsCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TagsOnAppointmentsCountAggregateOutputType> | number
-        }
-      }
-    }
     Tag: {
       payload: Prisma.$TagPayload<ExtArgs>
       fields: Prisma.TagFieldRefs
@@ -603,6 +537,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.TagCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.TagCountAggregateOutputType> | number
+        }
+      }
+    }
+    DefaultTag: {
+      payload: Prisma.$DefaultTagPayload<ExtArgs>
+      fields: Prisma.DefaultTagFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DefaultTagFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefaultTagPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DefaultTagFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefaultTagPayload>
+        }
+        findFirst: {
+          args: Prisma.DefaultTagFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefaultTagPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DefaultTagFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefaultTagPayload>
+        }
+        findMany: {
+          args: Prisma.DefaultTagFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefaultTagPayload>[]
+        }
+        create: {
+          args: Prisma.DefaultTagCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefaultTagPayload>
+        }
+        createMany: {
+          args: Prisma.DefaultTagCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.DefaultTagDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefaultTagPayload>
+        }
+        update: {
+          args: Prisma.DefaultTagUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefaultTagPayload>
+        }
+        deleteMany: {
+          args: Prisma.DefaultTagDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DefaultTagUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.DefaultTagUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DefaultTagPayload>
+        }
+        aggregate: {
+          args: Prisma.DefaultTagAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDefaultTag>
+        }
+        groupBy: {
+          args: Prisma.DefaultTagGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DefaultTagGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DefaultTagCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DefaultTagCountAggregateOutputType> | number
         }
       }
     }
@@ -790,24 +790,23 @@ export const AppointmentScalarFieldEnum = {
 export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
 
 
-export const TagsOnAppointmentsScalarFieldEnum = {
-  appointmentId: 'appointmentId',
-  tagId: 'tagId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type TagsOnAppointmentsScalarFieldEnum = (typeof TagsOnAppointmentsScalarFieldEnum)[keyof typeof TagsOnAppointmentsScalarFieldEnum]
-
-
 export const TagScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  nameSearch: 'nameSearch',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const DefaultTagScalarFieldEnum = {
+  id: 'id',
+  tagId: 'tagId'
+} as const
+
+export type DefaultTagScalarFieldEnum = (typeof DefaultTagScalarFieldEnum)[keyof typeof DefaultTagScalarFieldEnum]
 
 
 export const ParticipantScalarFieldEnum = {
@@ -848,7 +847,8 @@ export type AppointmentOrderByRelevanceFieldEnum = (typeof AppointmentOrderByRel
 
 
 export const TagOrderByRelevanceFieldEnum = {
-  name: 'name'
+  name: 'name',
+  nameSearch: 'nameSearch'
 } as const
 
 export type TagOrderByRelevanceFieldEnum = (typeof TagOrderByRelevanceFieldEnum)[keyof typeof TagOrderByRelevanceFieldEnum]
@@ -865,6 +865,13 @@ export type ParticipantOrderByRelevanceFieldEnum = (typeof ParticipantOrderByRel
 /**
  * Field references
  */
+
+
+/**
+ * Reference to a field of type 'BigInt'
+ */
+export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
 
 
 /**
@@ -990,8 +997,8 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   appointment?: Prisma.AppointmentOmit
-  tagsOnAppointments?: Prisma.TagsOnAppointmentsOmit
   tag?: Prisma.TagOmit
+  defaultTag?: Prisma.DefaultTagOmit
   participant?: Prisma.ParticipantOmit
   participantMark?: Prisma.ParticipantMarkOmit
 }

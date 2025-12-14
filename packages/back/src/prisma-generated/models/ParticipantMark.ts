@@ -32,21 +32,21 @@ export type ParticipantMarkAvgAggregateOutputType = {
 }
 
 export type ParticipantMarkSumAggregateOutputType = {
-  participantId: number | null
-  tagId: number | null
+  participantId: bigint | null
+  tagId: bigint | null
 }
 
 export type ParticipantMarkMinAggregateOutputType = {
-  participantId: number | null
-  tagId: number | null
+  participantId: bigint | null
+  tagId: bigint | null
   calendarDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type ParticipantMarkMaxAggregateOutputType = {
-  participantId: number | null
-  tagId: number | null
+  participantId: bigint | null
+  tagId: bigint | null
   calendarDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -184,8 +184,8 @@ export type ParticipantMarkGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 export type ParticipantMarkGroupByOutputType = {
-  participantId: number
-  tagId: number
+  participantId: bigint
+  tagId: bigint
   calendarDate: Date
   createdAt: Date
   updatedAt: Date
@@ -215,8 +215,8 @@ export type ParticipantMarkWhereInput = {
   AND?: Prisma.ParticipantMarkWhereInput | Prisma.ParticipantMarkWhereInput[]
   OR?: Prisma.ParticipantMarkWhereInput[]
   NOT?: Prisma.ParticipantMarkWhereInput | Prisma.ParticipantMarkWhereInput[]
-  participantId?: Prisma.IntFilter<"ParticipantMark"> | number
-  tagId?: Prisma.IntFilter<"ParticipantMark"> | number
+  participantId?: Prisma.BigIntFilter<"ParticipantMark"> | bigint | number
+  tagId?: Prisma.BigIntFilter<"ParticipantMark"> | bigint | number
   calendarDate?: Prisma.DateTimeFilter<"ParticipantMark"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"ParticipantMark"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ParticipantMark"> | Date | string
@@ -239,8 +239,8 @@ export type ParticipantMarkWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ParticipantMarkWhereInput | Prisma.ParticipantMarkWhereInput[]
   OR?: Prisma.ParticipantMarkWhereInput[]
   NOT?: Prisma.ParticipantMarkWhereInput | Prisma.ParticipantMarkWhereInput[]
-  participantId?: Prisma.IntFilter<"ParticipantMark"> | number
-  tagId?: Prisma.IntFilter<"ParticipantMark"> | number
+  participantId?: Prisma.BigIntFilter<"ParticipantMark"> | bigint | number
+  tagId?: Prisma.BigIntFilter<"ParticipantMark"> | bigint | number
   calendarDate?: Prisma.DateTimeFilter<"ParticipantMark"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"ParticipantMark"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ParticipantMark"> | Date | string
@@ -265,8 +265,8 @@ export type ParticipantMarkScalarWhereWithAggregatesInput = {
   AND?: Prisma.ParticipantMarkScalarWhereWithAggregatesInput | Prisma.ParticipantMarkScalarWhereWithAggregatesInput[]
   OR?: Prisma.ParticipantMarkScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ParticipantMarkScalarWhereWithAggregatesInput | Prisma.ParticipantMarkScalarWhereWithAggregatesInput[]
-  participantId?: Prisma.IntWithAggregatesFilter<"ParticipantMark"> | number
-  tagId?: Prisma.IntWithAggregatesFilter<"ParticipantMark"> | number
+  participantId?: Prisma.BigIntWithAggregatesFilter<"ParticipantMark"> | bigint | number
+  tagId?: Prisma.BigIntWithAggregatesFilter<"ParticipantMark"> | bigint | number
   calendarDate?: Prisma.DateTimeWithAggregatesFilter<"ParticipantMark"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ParticipantMark"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ParticipantMark"> | Date | string
@@ -281,8 +281,8 @@ export type ParticipantMarkCreateInput = {
 }
 
 export type ParticipantMarkUncheckedCreateInput = {
-  participantId: number
-  tagId: number
+  participantId: bigint | number
+  tagId: bigint | number
   calendarDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -297,16 +297,16 @@ export type ParticipantMarkUpdateInput = {
 }
 
 export type ParticipantMarkUncheckedUpdateInput = {
-  participantId?: Prisma.IntFieldUpdateOperationsInput | number
-  tagId?: Prisma.IntFieldUpdateOperationsInput | number
+  participantId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  tagId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   calendarDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParticipantMarkCreateManyInput = {
-  participantId: number
-  tagId: number
+  participantId: bigint | number
+  tagId: bigint | number
   calendarDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -319,8 +319,8 @@ export type ParticipantMarkUpdateManyMutationInput = {
 }
 
 export type ParticipantMarkUncheckedUpdateManyInput = {
-  participantId?: Prisma.IntFieldUpdateOperationsInput | number
-  tagId?: Prisma.IntFieldUpdateOperationsInput | number
+  participantId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  tagId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   calendarDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -337,8 +337,8 @@ export type ParticipantMarkOrderByRelationAggregateInput = {
 }
 
 export type ParticipantMarkParticipantIdTagIdCalendarDateCompoundUniqueInput = {
-  participantId: number
-  tagId: number
+  participantId: bigint | number
+  tagId: bigint | number
   calendarDate: Date | string
 }
 
@@ -468,7 +468,7 @@ export type ParticipantMarkCreateWithoutTagInput = {
 }
 
 export type ParticipantMarkUncheckedCreateWithoutTagInput = {
-  participantId: number
+  participantId: bigint | number
   calendarDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -504,8 +504,8 @@ export type ParticipantMarkScalarWhereInput = {
   AND?: Prisma.ParticipantMarkScalarWhereInput | Prisma.ParticipantMarkScalarWhereInput[]
   OR?: Prisma.ParticipantMarkScalarWhereInput[]
   NOT?: Prisma.ParticipantMarkScalarWhereInput | Prisma.ParticipantMarkScalarWhereInput[]
-  participantId?: Prisma.IntFilter<"ParticipantMark"> | number
-  tagId?: Prisma.IntFilter<"ParticipantMark"> | number
+  participantId?: Prisma.BigIntFilter<"ParticipantMark"> | bigint | number
+  tagId?: Prisma.BigIntFilter<"ParticipantMark"> | bigint | number
   calendarDate?: Prisma.DateTimeFilter<"ParticipantMark"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"ParticipantMark"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ParticipantMark"> | Date | string
@@ -519,7 +519,7 @@ export type ParticipantMarkCreateWithoutParticipantInput = {
 }
 
 export type ParticipantMarkUncheckedCreateWithoutParticipantInput = {
-  tagId: number
+  tagId: bigint | number
   calendarDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -552,7 +552,7 @@ export type ParticipantMarkUpdateManyWithWhereWithoutParticipantInput = {
 }
 
 export type ParticipantMarkCreateManyTagInput = {
-  participantId: number
+  participantId: bigint | number
   calendarDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -566,21 +566,21 @@ export type ParticipantMarkUpdateWithoutTagInput = {
 }
 
 export type ParticipantMarkUncheckedUpdateWithoutTagInput = {
-  participantId?: Prisma.IntFieldUpdateOperationsInput | number
+  participantId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   calendarDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParticipantMarkUncheckedUpdateManyWithoutTagInput = {
-  participantId?: Prisma.IntFieldUpdateOperationsInput | number
+  participantId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   calendarDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParticipantMarkCreateManyParticipantInput = {
-  tagId: number
+  tagId: bigint | number
   calendarDate: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -594,14 +594,14 @@ export type ParticipantMarkUpdateWithoutParticipantInput = {
 }
 
 export type ParticipantMarkUncheckedUpdateWithoutParticipantInput = {
-  tagId?: Prisma.IntFieldUpdateOperationsInput | number
+  tagId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   calendarDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ParticipantMarkUncheckedUpdateManyWithoutParticipantInput = {
-  tagId?: Prisma.IntFieldUpdateOperationsInput | number
+  tagId?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   calendarDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -642,8 +642,8 @@ export type $ParticipantMarkPayload<ExtArgs extends runtime.Types.Extensions.Int
     tag: Prisma.$TagPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    participantId: number
-    tagId: number
+    participantId: bigint
+    tagId: bigint
     calendarDate: Date
     createdAt: Date
     updatedAt: Date
@@ -1018,8 +1018,8 @@ export interface Prisma__ParticipantMarkClient<T, Null = never, ExtArgs extends 
  * Fields of the ParticipantMark model
  */
 export interface ParticipantMarkFieldRefs {
-  readonly participantId: Prisma.FieldRef<"ParticipantMark", 'Int'>
-  readonly tagId: Prisma.FieldRef<"ParticipantMark", 'Int'>
+  readonly participantId: Prisma.FieldRef<"ParticipantMark", 'BigInt'>
+  readonly tagId: Prisma.FieldRef<"ParticipantMark", 'BigInt'>
   readonly calendarDate: Prisma.FieldRef<"ParticipantMark", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"ParticipantMark", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ParticipantMark", 'DateTime'>

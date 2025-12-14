@@ -52,8 +52,8 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Appointment: 'Appointment',
-  TagsOnAppointments: 'TagsOnAppointments',
   Tag: 'Tag',
+  DefaultTag: 'DefaultTag',
   Participant: 'Participant',
   ParticipantMark: 'ParticipantMark'
 } as const
@@ -87,24 +87,23 @@ export const AppointmentScalarFieldEnum = {
 export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
 
 
-export const TagsOnAppointmentsScalarFieldEnum = {
-  appointmentId: 'appointmentId',
-  tagId: 'tagId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type TagsOnAppointmentsScalarFieldEnum = (typeof TagsOnAppointmentsScalarFieldEnum)[keyof typeof TagsOnAppointmentsScalarFieldEnum]
-
-
 export const TagScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  nameSearch: 'nameSearch',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
+
+
+export const DefaultTagScalarFieldEnum = {
+  id: 'id',
+  tagId: 'tagId'
+} as const
+
+export type DefaultTagScalarFieldEnum = (typeof DefaultTagScalarFieldEnum)[keyof typeof DefaultTagScalarFieldEnum]
 
 
 export const ParticipantScalarFieldEnum = {
@@ -145,7 +144,8 @@ export type AppointmentOrderByRelevanceFieldEnum = (typeof AppointmentOrderByRel
 
 
 export const TagOrderByRelevanceFieldEnum = {
-  name: 'name'
+  name: 'name',
+  nameSearch: 'nameSearch'
 } as const
 
 export type TagOrderByRelevanceFieldEnum = (typeof TagOrderByRelevanceFieldEnum)[keyof typeof TagOrderByRelevanceFieldEnum]

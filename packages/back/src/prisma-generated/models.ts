@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Appointment.ts'
-export type * from './models/TagsOnAppointments.ts'
 export type * from './models/Tag.ts'
+export type * from './models/DefaultTag.ts'
 export type * from './models/Participant.ts'
 export type * from './models/ParticipantMark.ts'
 export type * from './commonInputTypes.ts'
