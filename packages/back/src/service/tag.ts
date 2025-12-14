@@ -18,6 +18,11 @@ export interface ITagService {
    * @returns 검색된 태그 목록
    */
   searchTag(searchTerm: string, maxItems: number): Promise<TagModel[]>;
+
+  /**
+   * 새로운 태그를 생성함.
+   */
+  createTag(name: string, isDefault: boolean): Promise<void>;
 }
 
 export class TagService implements ITagService {
@@ -33,6 +38,12 @@ export class TagService implements ITagService {
 
   async searchTag(searchTerm: string, maxItems: number): Promise<TagModel[]> {
     return await this.repository.searchTag(searchTerm, maxItems);
+  }
+
+  async createTag(name: string, isDefault: boolean): Promise<void> {
+    name = name.normalize('NFC');
+
+    await this.repository.createTag(name, isDefault);
   }
 }
 

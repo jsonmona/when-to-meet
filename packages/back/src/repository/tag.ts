@@ -19,6 +19,11 @@ export interface ITagRepository {
    * @returns 검색된 태그 목록
    */
   searchTag(searchTerm: string, maxItems: number): Promise<TagModel[]>;
+
+  /**
+   * 새로운 태그를 생성함.
+   */
+  createTag(name: string, isDefault: boolean): Promise<void>;
 }
 
 export class TagRepository implements ITagRepository {
@@ -47,6 +52,23 @@ export class TagRepository implements ITagRepository {
         },
       },
       take: maxItems,
+    });
+  }
+
+  async createTag(name: string, isDefault: boolean): Promise<void> {
+    let defaultTag = {};
+    if (isDefault) {
+      defaultTag = {
+        create: {},
+      };
+    }
+
+    await prisma.tag.create({
+      data: {
+        name,
+        nameSearch: disassemble(name),
+        defaultTag,
+      },
     });
   }
 }
