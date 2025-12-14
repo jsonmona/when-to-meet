@@ -1,13 +1,14 @@
 import z from 'zod';
+import { appointmentKey, bigintStr } from '../../codec/integer.ts';
 
 // POST /api/participant
 export const CreateParticipantRequest = z.object({
-  appointmentKey: z.string(),
+  appointmentKey: appointmentKey,
   name: z.string().max(30),
 });
 
 export const CreateParticipantResponse = z.object({
-  id: z.string(),
+  id: bigintStr,
 });
 
 // PUT /api/participant/:id (no response body)

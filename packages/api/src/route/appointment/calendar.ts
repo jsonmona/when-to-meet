@@ -1,5 +1,7 @@
 import z from 'zod';
 import { isoDate } from '../../codec/datetime.ts';
+import { bigintStr } from '../../codec/integer.ts';
+import { tagString } from '../../types/tag.ts';
 
 // GET /api/appointment/:key/calendar/:year/:month
 export const GetAppointmentCalendarMonthResponse = z.object({
@@ -13,7 +15,7 @@ export const GetAppointmentCalendarMonthResponse = z.object({
    * ]
    * 위 예시에서는 participantId=1이 tagName=a를 달고, participantId=2이 tagName=b를 단 것임.
    */
-  tags: z.array(z.array(z.tuple([z.string(), z.string()]))),
+  tags: z.array(z.array(z.tuple([bigintStr, tagString]))),
 });
 
 // PUT /api/appointment/:key/calendar
@@ -21,7 +23,7 @@ export const UpdateAppointmentCalendarRequest = z.object({
   /**
    * 수정하고자 하는 참가자 ID
    */
-  participantId: z.string(),
+  participantId: bigintStr,
 
   /**
    * [날짜, 태그 ID]의 배열
@@ -33,5 +35,5 @@ export const UpdateAppointmentCalendarRequest = z.object({
    * 위 예시에서는 29일의 태그를 초기화하고, 30일에 태그 a와 b를 달았음.
    * 30일에 기존에 있던 태그 중 수정하고자 하는 참가자가 기존에 단 태그는 모두 지워지고 a와 b만 남음.
    */
-  tags: z.array(z.tuple([isoDate, z.array(z.string())])),
+  tags: z.array(z.tuple([isoDate, z.array(tagString)])),
 });

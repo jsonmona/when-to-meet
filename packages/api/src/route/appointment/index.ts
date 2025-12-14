@@ -1,6 +1,8 @@
 import z from 'zod';
 import { Participant } from '../../types/participant.ts';
 import { isoDate } from '../../codec/datetime.ts';
+import { tagString } from '../../types/tag.ts';
+import { appointmentKey } from '../../codec/integer.ts';
 
 export * from './calendar.ts';
 
@@ -15,11 +17,11 @@ export const CreateAppointmentRequest = z.object({
   startDate: isoDate,
   endDate: isoDate,
 
-  tags: z.array(z.string()),
+  tags: z.array(tagString),
 });
 
 export const CreateAppointmentResponse = z.object({
-  key: z.string(),
+  key: appointmentKey,
 });
 
 // GET /api/appointment/:key
@@ -28,7 +30,7 @@ export const GetAppointmentResponse = z.object({
   startDate: isoDate,
   endDate: isoDate,
 
-  tags: z.array(z.string()),
+  tags: z.array(tagString),
   participants: z.array(Participant),
 });
 
