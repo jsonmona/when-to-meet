@@ -1,5 +1,5 @@
 import { axiosClient } from '../constants';
-import { z } from 'zod';
+import z from 'zod';
 import { TagDefaultResponse, TagSearchResponse } from '@when-to-meet/api';
 
 /**

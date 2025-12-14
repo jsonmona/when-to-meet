@@ -1,9 +1,10 @@
 import { axiosClient } from '../constants';
-import { z } from 'zod';
+import z from 'zod';
 import {
   CountResponse,
   CreateAppointmentRequest,
   CreateAppointmentResponse,
+  GetAppointmentResponse,
 } from '@when-to-meet/api';
 
 /**
@@ -36,4 +37,21 @@ export async function createAppointment(
 
   const data = res.data as z.input<typeof CreateAppointmentResponse>;
   return data.key;
+}
+
+/**
+ * GET /api/appointment/:key
+ *
+ * @returns 해당 약속의 정보
+ */
+export async function getAppointment(
+  key: string
+): Promise<z.input<typeof GetAppointmentResponse>> {
+  const res = await axiosClient.get(`/appointment/${key}`);
+  if (res.status !== 200) {
+    throw new Error('Failed to fetch appointment');
+  }
+
+  const data = res.data as z.input<typeof GetAppointmentResponse>;
+  return data;
 }

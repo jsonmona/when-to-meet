@@ -1,5 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getAppointmentCount, createAppointment } from '../apis/appointment';
+import {
+  getAppointmentCount,
+  createAppointment,
+  getAppointment,
+} from '../apis/appointment';
 import { queryClient } from '../constants';
 
 export const useQueryAppointmentCount = () =>
@@ -15,4 +19,10 @@ export const useMutationCreateAppointment = () =>
     onSuccess: (newKey) => {
       queryClient.invalidateQueries({ queryKey: ['appointment', newKey] });
     },
+  });
+
+export const useQueryAppointment = (key: string) =>
+  useQuery({
+    queryKey: ['appointment', key],
+    queryFn: () => getAppointment(key),
   });

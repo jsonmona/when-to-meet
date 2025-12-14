@@ -3,12 +3,14 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { MantineProvider } from '@mantine/core';
 import { queryClient } from '../constants';
+import { Notifications } from '@mantine/notifications';
 
 const RootLayout = () => {
   return (
     <>
       <QueryClientProvider client={queryClient}>
         <MantineProvider>
+          <Notifications />
           <Outlet />
         </MantineProvider>
       </QueryClientProvider>
