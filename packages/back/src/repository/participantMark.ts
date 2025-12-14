@@ -71,7 +71,7 @@ export class ParticipantMarkRepository implements IParticipantMarkRepository {
     participantId: bigint,
     updates: [Date, string[]][]
   ): Promise<void> {
-    prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx) => {
       const tagNameToId = new Map<string, bigint>();
       const tagMap = await tx.tag.findMany({
         where: {
