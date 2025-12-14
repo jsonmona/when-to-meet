@@ -1,5 +1,6 @@
 import { prisma } from './prisma.ts';
 import type { TagModel } from '../prisma-generated/models.ts';
+import { disassemble } from 'es-hangul';
 
 export interface ITagRepository {
   /**
@@ -42,7 +43,7 @@ export class TagRepository implements ITagRepository {
     return await prisma.tag.findMany({
       where: {
         nameSearch: {
-          startsWith: searchTerm,
+          startsWith: disassemble(searchTerm),
         },
       },
       take: maxItems,
