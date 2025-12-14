@@ -27,9 +27,9 @@ export const getCalendarMonth: RequestHandler<
     return res.sendStatus(404);
   }
 
-  const output: [bigint, string][][] = [];
+  const tags = organizeMarkPair(year, month, data);
 
-  res.json(GetAppointmentCalendarMonthResponse.encode({ tags: output }));
+  res.json(GetAppointmentCalendarMonthResponse.encode({ tags }));
   return;
 };
 
