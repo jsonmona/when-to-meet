@@ -1,7 +1,17 @@
 import type { RequestHandler } from 'express';
 import z from 'zod';
 import { tagService } from '../service/tag.ts';
-import { TagSearchResponse } from '@when-to-meet/api';
+import { TagDefaultResponse, TagSearchResponse } from '@when-to-meet/api';
+
+export const defaultTag: RequestHandler<
+  {},
+  z.input<typeof TagDefaultResponse>
+> = async (req, res) => {
+  const data = await tagService.defaultTag();
+  const tags = data.map((tag) => tag.name);
+
+  res.json({ tags });
+};
 
 export const searchTag: RequestHandler<
   {},
