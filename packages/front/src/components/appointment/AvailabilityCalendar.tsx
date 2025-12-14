@@ -20,6 +20,7 @@ interface AvailabilityCalendarProps {
   startDate: LocalDate;
   endDate: LocalDate;
   renderMonth: LocalDate;
+  totalTagCount: number;
   totalParticipantsCount: number;
   onPaintDate: (date: LocalDate) => void;
 }
@@ -31,6 +32,7 @@ export const AvailabilityCalendar = ({
   startDate,
   endDate,
   renderMonth,
+  totalTagCount,
   totalParticipantsCount,
   onPaintDate,
 }: AvailabilityCalendarProps) => {
@@ -81,12 +83,21 @@ export const AvailabilityCalendar = ({
       const votes = calendarData[dayIndex] || [];
 
       if (editParticipantId) {
-        const hasVoted = votes.some(([uid]) => uid === editParticipantId);
+        const myVotes = votes.filter(([uid]) => uid === editParticipantId);
+        const hasVoted = myVotes.length !== 0;
+
+        let exactVoted =
+          myVotes.length === (highlightTags?.length ?? totalTagCount);
+
+        if (exactVoted && highlightTags !== null) {
+          const myVotesSet = new Set(myVotes.map(([_, tag]) => tag));
+          exactVoted = highlightTags?.every((ht) => myVotesSet.has(ht));
+        }
 
         return {
-          bg: hasVoted ? '#e6fcf5' : '#ffffff',
-          borderColor: hasVoted ? '#0ca678' : '#dee2e6',
-          color: hasVoted ? '#087f5b' : '#212529',
+          bg: exactVoted ? '#e6fcf5' : hasVoted ? '#f6ecb3' : '#ffffff',
+          borderColor: exactVoted ? '#0ca678' : '#dee2e6',
+          color: exactVoted ? '#087f5b' : '#212529',
           interactive: true,
           icon: hasVoted ? <BsCheckCircleFill /> : null,
           cursor: 'pointer',
@@ -95,18 +106,24 @@ export const AvailabilityCalendar = ({
 
       let ratio = 0;
 
-      if (highlightTags && highlightTags.length > 0) {
+      if (highlightTags !== null && highlightTags.length > 0) {
         const userVotes = new Map<string, Set<string>>();
-        votes.forEach(([uid, tag]) => {
-          if (!userVotes.has(uid)) userVotes.set(uid, new Set());
-          userVotes.get(uid)?.add(tag);
-        });
+        for (const [uid, tag] of votes) {
+          const currVotes = userVotes.get(uid);
+          if (currVotes) {
+            currVotes.add(tag);
+          } else {
+            userVotes.set(uid, new Set([tag]));
+          }
+        }
 
         let qualifiedUsers = 0;
-        userVotes.forEach((tags) => {
+        for (const [_, tags] of userVotes) {
           const hasAllTags = highlightTags.every((ht) => tags.has(ht));
-          if (hasAllTags) qualifiedUsers++;
-        });
+          if (hasAllTags) {
+            qualifiedUsers++;
+          }
+        }
 
         ratio =
           totalParticipantsCount > 0
@@ -142,6 +159,7 @@ export const AvailabilityCalendar = ({
     endDate,
     editParticipantId,
     highlightTags,
+    totalTagCount,
     totalParticipantsCount,
   ]);
 

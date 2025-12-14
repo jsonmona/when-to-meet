@@ -120,8 +120,9 @@ function RouteComponent() {
           startDate={startDate}
           endDate={endDate}
           renderMonth={renderDate}
-          highlightTags={selectedTags}
+          highlightTags={selectedTags.length ? selectedTags : null}
           onPaintDate={onPaintDate}
+          totalTagCount={appointment.data.tags.length}
           totalParticipantsCount={appointment.data.participants.length}
         />
       </Paper>
