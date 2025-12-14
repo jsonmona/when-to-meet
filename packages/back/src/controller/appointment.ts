@@ -30,7 +30,7 @@ export const createAppointment: RequestHandler<
     req.body.tags
   );
 
-  res.json(CreateAppointmentResponse.encode({ key: [id, nonce] }));
+  res.status(201).json(CreateAppointmentResponse.encode({ key: [id, nonce] }));
 };
 
 export const getAppointment: RequestHandler<
