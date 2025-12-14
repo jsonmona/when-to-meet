@@ -1,2 +1,5 @@
 **/*.html
 **/*.md
+
+# TanStack Router
+**/routeTree.gen.ts
