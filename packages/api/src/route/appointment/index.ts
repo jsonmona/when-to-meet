@@ -1,6 +1,5 @@
 import z from 'zod';
 import { Participant } from '../../types/participant.ts';
-import { Tag } from '../../types/tag.ts';
 import { isoDate } from '../../codec/datetime.ts';
 
 export * from './calendar.ts';
@@ -16,7 +15,6 @@ export const CreateAppointmentRequest = z.object({
   startDate: isoDate,
   endDate: isoDate,
 
-  /** tagId의 배열 */
   tags: z.array(z.string()),
 });
 
@@ -30,7 +28,7 @@ export const GetAppointmentResponse = z.object({
   startDate: isoDate,
   endDate: isoDate,
 
-  tags: z.array(Tag),
+  tags: z.array(z.string()),
   participants: z.array(Participant),
 });
 
