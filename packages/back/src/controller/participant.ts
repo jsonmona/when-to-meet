@@ -24,7 +24,7 @@ export const createParticipant: RequestHandler<
     return res.sendStatus(404);
   }
 
-  res.json(CreateParticipantResponse.encode({ id }));
+  res.status(201).json(CreateParticipantResponse.encode({ id }));
 };
 
 export const updateParticipant: RequestHandler<
