@@ -11,7 +11,9 @@ const randomBytesAsync = util.promisify(crypto.randomBytes);
 
 async function generateNonce() {
   const bytes = await randomBytesAsync(16);
-  return bytes.readUInt16LE();
+
+  // Prisma는 DB 타입이 unsigned여도 무조건 signed 범위만 허용함
+  return bytes.readUInt16LE() & 0x7fff;
 }
 
 export interface IAppointmentService {
