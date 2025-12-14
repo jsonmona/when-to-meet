@@ -6,8 +6,11 @@ import { useQueryAppointment } from '../../queries/appointment';
 import { Container, Paper, Skeleton, Stack } from '@mantine/core';
 import { AvailabilityCalendar } from '../../components/appointment/AvailabilityCalendar';
 import { CalendarHeader } from '../../components/appointment/CalendarHeader';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { TagCheckboxList } from '../../components/appointment/TagCheckboxList';
+import { useThrottledUpdate } from '../../hook/throttledUpdate';
+import { updateCalendar } from '../../apis/calendar';
+import { queryClient } from '../../constants';
 
 export const Route = createFileRoute('/appointment/$key')({
   component: RouteComponent,
@@ -21,6 +24,44 @@ function RouteComponent() {
   const [editTarget, setEditTarget] = useState<string | null>(null);
   const [renderDate, setRenderDate] = useState(() =>
     LocalDate.now().withDayOfMonth(1)
+  );
+
+  const onCalendarUpdate = useCallback(
+    async (updates: [string, string[]][]) => {
+      if (editTarget === null) {
+        return;
+      }
+
+      updateCalendar({
+        key: appointmentKey,
+        participantId: editTarget,
+        tags: updates,
+      }).then(() => {
+        queryClient.invalidateQueries({
+          queryKey: [
+            'appointment',
+            appointmentKey,
+            'calendar',
+            renderDate.year(),
+            renderDate.monthValue(),
+          ],
+        });
+      });
+    },
+    [appointmentKey, editTarget, renderDate]
+  );
+
+  const { addUpdate: addCalendarUpdate } = useThrottledUpdate(
+    500,
+    onCalendarUpdate
+  );
+
+  const onPaintDate = useCallback(
+    (date: LocalDate) => {
+      const dateStr = date.format(DateTimeFormatter.ISO_DATE);
+      addCalendarUpdate([dateStr, selectedTags]);
+    },
+    [addCalendarUpdate, selectedTags]
   );
 
   if (!appointment.isSuccess) {
@@ -80,7 +121,7 @@ function RouteComponent() {
           endDate={endDate}
           renderMonth={renderDate}
           highlightTags={selectedTags}
-          onPaintDate={(x) => console.log(x)}
+          onPaintDate={onPaintDate}
           totalParticipantsCount={appointment.data.participants.length}
         />
       </Paper>

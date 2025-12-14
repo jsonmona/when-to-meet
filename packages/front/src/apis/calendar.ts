@@ -1,9 +1,7 @@
 import { axiosClient } from '../constants';
 import z from 'zod';
 import {
-  CreateAppointmentResponse,
   GetAppointmentCalendarMonthResponse,
-  GetAppointmentResponse,
   UpdateAppointmentCalendarRequest,
 } from '@when-to-meet/api';
 
