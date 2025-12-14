@@ -1,0 +1,33 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: when-to-meet-app
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=mysql://devuser:devpassword@db:3306/whentomeet
+      - DATABASE_USER=devuser
+      - DATABASE_PASSWORD=devpassword
+      - DATABASE_NAME=whentomeet
+      - DATABASE_HOST=db
+      - DATABASE_PORT=3306
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mariadb:lts
+    container_name: when-to-meet-db
+    environment:
+      - MARIADB_RANDOM_ROOT_PASSWORD=1
+      - MARIADB_DATABASE=whentomeet
+      - MARIADB_USER=devuser
+      - MARIADB_PASSWORD=devpassword
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  db_data:

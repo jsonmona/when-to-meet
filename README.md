@@ -30,6 +30,12 @@ $ cd when-to-meet
 $ docker-compose up -d
 ```
 
+첫 실행시 DB 세팅이 필요합니다.
+```
+$ docker exec -it when-to-meet-app bash
+container# npx prisma migrate deploy
+```
+
 ## 프로젝트 설계 및 기술스택
 [DESIGN.md](DESIGN.md) 파일을 참고해주세요.
 
