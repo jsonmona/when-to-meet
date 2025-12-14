@@ -104,6 +104,7 @@ function NewAppointment() {
                 label="시작일"
                 placeholder="날짜 선택"
                 valueFormat="YYYY년 MM월 DD일"
+                firstDayOfWeek={0}
                 {...form.getInputProps('startDate')}
               />
               <DateInput
@@ -111,7 +112,8 @@ function NewAppointment() {
                 label="종료일"
                 placeholder="날짜 선택"
                 valueFormat="YYYY년 MM월 DD일"
-                minDate={form.values.startDate || new Date()}
+                firstDayOfWeek={0}
+                minDate={form.values.startDate ?? undefined}
                 {...form.getInputProps('endDate')}
               />
             </Group>
