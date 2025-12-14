@@ -6,7 +6,8 @@
   "type": "module",
   "prettier": "@when-to-meet/prettier-config",
   "scripts": {
-    "dev": "node --watch src/app.ts"
+    "dev": "node --watch src/app.ts",
+    "lint": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
