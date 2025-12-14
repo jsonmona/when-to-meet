@@ -10,13 +10,14 @@ import {
   Group,
 } from '@mantine/core';
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { useQueryAppointmentCount } from '../queries/appointment';
 
 export const Route = createFileRoute('/')({
   component: Index,
 });
 
 function Index() {
-  const totalAppointments = 1253;
+  const appointmentCount = useQueryAppointmentCount();
 
   return (
     <Container size="sm" py="xl">
@@ -47,7 +48,7 @@ function Index() {
             <Text size="lg" fw={500}>
               지금까지 전국에서{' '}
               <Text span c="blue" inherit fw={800} size="xl">
-                {totalAppointments.toLocaleString()}개
+                {appointmentCount.data.toLocaleString()}개
               </Text>
               의 약속을 잡았어요!
             </Text>
