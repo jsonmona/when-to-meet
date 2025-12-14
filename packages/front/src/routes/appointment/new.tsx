@@ -3,7 +3,6 @@ import {
   Container,
   Title,
   TextInput,
-  MultiSelect,
   Button,
   Group,
   Stack,
@@ -11,6 +10,9 @@ import {
 import { DateInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import { createFileRoute } from '@tanstack/react-router';
+import { useQueryDefaultTag } from '../../queries/tag';
+import { TagSelector } from '../../components/TagSelector';
+import { useEffect } from 'react';
 
 export const Route = createFileRoute('/appointment/new')({
   component: NewAppointment,
@@ -23,7 +25,7 @@ interface AppointmentFormValues {
   name: string;
   startDate: string | null;
   endDate: string | null;
-  tags: string[];
+  tags: string[] | null;
 }
 
 function NewAppointment() {
@@ -32,7 +34,7 @@ function NewAppointment() {
       name: '',
       startDate: null,
       endDate: null,
-      tags: [],
+      tags: null,
     },
 
     validate: {
@@ -44,10 +46,19 @@ function NewAppointment() {
         }
         return null;
       },
-      tags: (value) =>
-        value.length === 0 ? '최소 하나의 태그를 선택해주세요.' : null,
+      tags: (value) => {
+        if (!value) return '아직 태그 목록이 로딩중이에요.';
+        return value.length === 0 ? '최소 하나의 태그를 선택해주세요.' : null;
+      },
     },
   });
+
+  const defaultTags = useQueryDefaultTag();
+  useEffect(() => {
+    if (form.values.tags === null && defaultTags.isSuccess) {
+      form.setFieldValue('tags', defaultTags.data);
+    }
+  }, [defaultTags.isSuccess, form.values.tags]);
 
   const handleSubmit = (values: AppointmentFormValues) => {
     // 폼 검증시에 null이 아님을 체크했음
@@ -55,7 +66,7 @@ function NewAppointment() {
       name: values.name || DEFAULT_NAME,
       startDate: values.startDate!,
       endDate: values.endDate!,
-      tags: values.tags,
+      tags: values.tags!,
     };
   };
 
@@ -97,14 +108,10 @@ function NewAppointment() {
               />
             </Group>
 
-            <MultiSelect
-              withAsterisk
-              label="날짜별 투표 태그"
-              data={['가능', '필요하면 가능']}
-              searchable
-              clearable
-              description="각 날짜에 투표할 수 있는 태그입니다."
-              {...form.getInputProps('tags')}
+            <TagSelector
+              disabled={!defaultTags.isSuccess}
+              selectedTags={form.values.tags || []}
+              onSelectTags={(newTags) => form.setFieldValue('tags', newTags)}
             />
 
             <Button type="submit" fullWidth mt="md" size="md">

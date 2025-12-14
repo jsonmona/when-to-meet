@@ -1,16 +1,16 @@
 .list-item {
-    border-bottom: 1px solid var(--app-shell-border-color);
+  border-bottom: 1px solid var(--app-shell-border-color);
 }
 
 .list-link {
-    display: flex;
-    height: 3rem;
-    padding: 0 0.5rem;
-    align-items: center;
+  display: flex;
+  height: 3rem;
+  padding: 0 0.5rem;
+  align-items: center;
 }
 
 .list-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
