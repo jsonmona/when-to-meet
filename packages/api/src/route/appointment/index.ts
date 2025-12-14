@@ -15,6 +15,9 @@ export const CreateAppointmentRequest = z.object({
   name: z.string().max(80),
   startDate: isoDate,
   endDate: isoDate,
+
+  /** tagId의 배열 */
+  tags: z.array(z.string()),
 });
 
 export const CreateAppointmentResponse = z.object({
