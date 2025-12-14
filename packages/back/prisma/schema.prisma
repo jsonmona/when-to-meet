@@ -18,6 +18,8 @@ model Appointment {
 
   participants Participant[]
   tags         Tag[]
+
+  @@map("appointment")
 }
 
 model Tag {
@@ -30,6 +32,8 @@ model Tag {
   participantMarks ParticipantMark[]
   appointments     Appointment[]
   defaultTag       DefaultTag?
+
+  @@map("tag")
 }
 
 model DefaultTag {
@@ -37,6 +41,8 @@ model DefaultTag {
   tagId BigInt @unique
 
   tag Tag @relation(fields: [tagId], references: [id])
+
+  @@map("default_tag")
 }
 
 model Participant {
@@ -48,6 +54,8 @@ model Participant {
 
   appointment      Appointment       @relation(fields: [appointmentId], references: [id])
   participantMarks ParticipantMark[]
+
+  @@map("participant")
 }
 
 model ParticipantMark {
@@ -61,4 +69,6 @@ model ParticipantMark {
   tag         Tag         @relation(fields: [tagId], references: [id])
 
   @@id([participantId, tagId, calendarDate])
+
+  @@map("participant_mark")
 }
