@@ -13,7 +13,7 @@ export async function getDefaultTag(): Promise<string[]> {
     throw new Error('Failed to fetch default tag');
   }
 
-  const data = res.data as z.infer<typeof TagDefaultResponse>;
+  const data = res.data as z.input<typeof TagDefaultResponse>;
   return data.tags;
 }
 
@@ -33,6 +33,6 @@ export async function searchTag(prefix: string): Promise<string[]> {
     throw new Error('Failed to search for tag');
   }
 
-  const data = res.data as z.infer<typeof TagSearchResponse>;
+  const data = res.data as z.input<typeof TagSearchResponse>;
   return data.tags;
 }

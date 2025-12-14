@@ -9,10 +9,11 @@ import {
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useQueryDefaultTag } from '../../queries/tag';
 import { TagSelector } from '../../components/TagSelector';
 import { useEffect } from 'react';
+import { useMutationCreateAppointment } from '../../queries/appointment';
 
 export const Route = createFileRoute('/appointment/new')({
   component: NewAppointment,
@@ -29,6 +30,9 @@ interface AppointmentFormValues {
 }
 
 function NewAppointment() {
+  const navigate = useNavigate();
+  const { mutateAsync: onSubmit, isPending } = useMutationCreateAppointment();
+
   const form = useForm<AppointmentFormValues>({
     initialValues: {
       name: '',
@@ -58,7 +62,7 @@ function NewAppointment() {
     if (form.values.tags === null && defaultTags.isSuccess) {
       form.setFieldValue('tags', defaultTags.data);
     }
-  }, [defaultTags.isSuccess, form.values.tags]);
+  }, [form.values.tags, defaultTags.isSuccess]);
 
   const handleSubmit = (values: AppointmentFormValues) => {
     // 폼 검증시에 null이 아님을 체크했음
@@ -68,6 +72,10 @@ function NewAppointment() {
       endDate: values.endDate!,
       tags: values.tags!,
     };
+
+    onSubmit(payload).then((newKey) => {
+      navigate({ to: '/appointment/$key', params: { key: newKey } });
+    });
   };
 
   return (
@@ -114,7 +122,13 @@ function NewAppointment() {
               onSelectTags={(newTags) => form.setFieldValue('tags', newTags)}
             />
 
-            <Button type="submit" fullWidth mt="md" size="md">
+            <Button
+              type="submit"
+              fullWidth
+              mt="md"
+              size="md"
+              loading={isPending}
+            >
               약속 만들기
             </Button>
           </Stack>

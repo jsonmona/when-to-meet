@@ -13,6 +13,7 @@ import { Route as AppointmentRouteImport } from './routes/appointment'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppointmentNewRouteImport } from './routes/appointment/new'
+import { Route as AppointmentKeyRouteImport } from './routes/appointment/$key'
 
 const AppointmentRoute = AppointmentRouteImport.update({
   id: '/appointment',
@@ -34,17 +35,24 @@ const AppointmentNewRoute = AppointmentNewRouteImport.update({
   path: '/new',
   getParentRoute: () => AppointmentRoute,
 } as any)
+const AppointmentKeyRoute = AppointmentKeyRouteImport.update({
+  id: '/$key',
+  path: '/$key',
+  getParentRoute: () => AppointmentRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/appointment': typeof AppointmentRouteWithChildren
+  '/appointment/$key': typeof AppointmentKeyRoute
   '/appointment/new': typeof AppointmentNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/appointment': typeof AppointmentRouteWithChildren
+  '/appointment/$key': typeof AppointmentKeyRoute
   '/appointment/new': typeof AppointmentNewRoute
 }
 export interface FileRoutesById {
@@ -52,14 +60,26 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/appointment': typeof AppointmentRouteWithChildren
+  '/appointment/$key': typeof AppointmentKeyRoute
   '/appointment/new': typeof AppointmentNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/appointment' | '/appointment/new'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/appointment'
+    | '/appointment/$key'
+    | '/appointment/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/appointment' | '/appointment/new'
-  id: '__root__' | '/' | '/about' | '/appointment' | '/appointment/new'
+  to: '/' | '/about' | '/appointment' | '/appointment/$key' | '/appointment/new'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/appointment'
+    | '/appointment/$key'
+    | '/appointment/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -98,14 +118,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppointmentNewRouteImport
       parentRoute: typeof AppointmentRoute
     }
+    '/appointment/$key': {
+      id: '/appointment/$key'
+      path: '/$key'
+      fullPath: '/appointment/$key'
+      preLoaderRoute: typeof AppointmentKeyRouteImport
+      parentRoute: typeof AppointmentRoute
+    }
   }
 }
 
 interface AppointmentRouteChildren {
+  AppointmentKeyRoute: typeof AppointmentKeyRoute
   AppointmentNewRoute: typeof AppointmentNewRoute
 }
 
 const AppointmentRouteChildren: AppointmentRouteChildren = {
+  AppointmentKeyRoute: AppointmentKeyRoute,
   AppointmentNewRoute: AppointmentNewRoute,
 }
 
