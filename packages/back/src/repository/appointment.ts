@@ -53,6 +53,15 @@ export interface IAppointmentRepository {
    * 약속을 삭제함
    */
   deleteAppointment(id: number, nonce: number): Promise<void>;
+
+  /**
+   * 기존 태그를 삭제하고 새로 태그를 붙임
+   *
+   * @param id 수정할 약속의 ID
+   * @param nonce 수정할 약속의 nonce값
+   * @param tagIds 태그 ID 배열
+   */
+  updateTags(id: number, nonce: number, tagIds: number[]): Promise<void>;
 }
 
 export class AppointmentRepository implements IAppointmentRepository {
@@ -134,6 +143,26 @@ export class AppointmentRepository implements IAppointmentRepository {
   async deleteAppointment(id: number, nonce: number): Promise<void> {
     await prisma.appointment.delete({
       where: { id, nonce },
+    });
+  }
+
+  async updateTags(id: number, nonce: number, tagIds: number[]): Promise<void> {
+    await prisma.$transaction(async (tx) => {
+      //TODO: Handle error
+      await tx.appointment.findUniqueOrThrow({
+        where: {
+          id,
+          nonce,
+        },
+      });
+      await tx.tagsOnAppointments.deleteMany({
+        where: {
+          appointmentId: id,
+        },
+      });
+      await tx.tagsOnAppointments.createMany({
+        data: tagIds.map((tagId) => ({ appointmentId: id, tagId })),
+      });
     });
   }
 }

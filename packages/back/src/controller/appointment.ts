@@ -26,7 +26,8 @@ export const createAppointment: RequestHandler<
   const key = await appointmentService.createAppointment(
     req.body.name,
     LocalDate.from(nativeJs(req.body.startDate)),
-    LocalDate.from(nativeJs(req.body.endDate))
+    LocalDate.from(nativeJs(req.body.endDate)),
+    req.body.tags
   );
 
   res.json({ key });
@@ -65,7 +66,8 @@ export const updateAppointment: RequestHandler<
     key,
     req.body.name,
     LocalDate.from(nativeJs(req.body.startDate)),
-    LocalDate.from(nativeJs(req.body.endDate))
+    LocalDate.from(nativeJs(req.body.endDate)),
+    req.body.tags
   );
   res.sendStatus(200);
 };

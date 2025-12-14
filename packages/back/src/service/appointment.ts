@@ -45,7 +45,8 @@ export interface IAppointmentService {
   createAppointment(
     name: string,
     startDate: LocalDate,
-    endDate: LocalDate
+    endDate: LocalDate,
+    tagIds: string[]
   ): Promise<string>;
 
   /**
@@ -65,7 +66,8 @@ export interface IAppointmentService {
     key: string,
     name: string,
     startDate: LocalDate,
-    endDate: LocalDate
+    endDate: LocalDate,
+    tagIds: string[]
   ): Promise<void>;
 
   /**
@@ -88,13 +90,19 @@ export class AppointmentService implements IAppointmentService {
   async createAppointment(
     name: string,
     startDate: LocalDate,
-    endDate: LocalDate
+    endDate: LocalDate,
+    tagIds: string[]
   ) {
     const data = await this.repository.createAppointment(
       await generateNonce(),
       name,
       convert(startDate).toDate(),
       convert(endDate).toDate()
+    );
+    await this.repository.updateTags(
+      data.id,
+      data.nonce,
+      tagIds.map((x) => parseInt(x)).filter((x) => !isNaN(x))
     );
 
     return composeKey(data);
@@ -110,7 +118,8 @@ export class AppointmentService implements IAppointmentService {
     key: string,
     name: string,
     startDate: LocalDate,
-    endDate: LocalDate
+    endDate: LocalDate,
+    tagIds: string[]
   ) {
     const { id, nonce } = decomposeKey(key);
 
@@ -119,6 +128,11 @@ export class AppointmentService implements IAppointmentService {
       startDate: convert(startDate).toDate(),
       endDate: convert(endDate).toDate(),
     });
+    await this.repository.updateTags(
+      id,
+      nonce,
+      tagIds.map((x) => parseInt(x)).filter((x) => !isNaN(x))
+    );
   }
 
   async deleteAppointment(key: string) {
