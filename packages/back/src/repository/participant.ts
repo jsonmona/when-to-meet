@@ -12,7 +12,7 @@ export interface IParticipantRepository {
    * @returns 추가된 참가자 정보. 약속을 찾을 수 없다면 null.
    */
   addParticipant(
-    appointmentId: number,
+    appointmentId: bigint,
     nonce: number | null,
     name: string
   ): Promise<ParticipantModel | null>;
@@ -23,21 +23,21 @@ export interface IParticipantRepository {
    * @param id 참가자 ID
    * @param name 새 이름
    */
-  updateParticipant(id: number, name: string): Promise<void>;
+  updateParticipant(id: bigint, name: string): Promise<void>;
 
   /**
    * 참가자를 삭제함
    *
    * @param id 참가자 ID
    */
-  deleteParticipant(id: number): Promise<void>;
+  deleteParticipant(id: bigint): Promise<void>;
 }
 
 export class ParticipantRepository implements IParticipantRepository {
   constructor() {}
 
   async addParticipant(
-    appointmentId: number,
+    appointmentId: bigint,
     nonce: number | null,
     name: string
   ): Promise<ParticipantModel | null> {
@@ -69,14 +69,14 @@ export class ParticipantRepository implements IParticipantRepository {
     return data;
   }
 
-  async updateParticipant(id: number, name: string): Promise<void> {
+  async updateParticipant(id: bigint, name: string): Promise<void> {
     await prisma.participant.update({
       where: { id },
       data: { name },
     });
   }
 
-  async deleteParticipant(id: number): Promise<void> {
+  async deleteParticipant(id: bigint): Promise<void> {
     await prisma.participant.delete({
       where: { id },
     });

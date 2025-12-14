@@ -23,36 +23,28 @@ export const createAppointment: RequestHandler<
   z.input<typeof CreateAppointmentResponse>,
   z.infer<typeof CreateAppointmentRequest>
 > = async (req, res) => {
-  const key = await appointmentService.createAppointment(
+  const { id, nonce } = await appointmentService.createAppointment(
     req.body.name,
     LocalDate.from(nativeJs(req.body.startDate)),
     LocalDate.from(nativeJs(req.body.endDate)),
     req.body.tags
   );
 
-  res.json({ key });
+  res.json(CreateAppointmentResponse.encode({ key: [id, nonce] }));
 };
 
 export const getAppointment: RequestHandler<
   { key: string },
   z.input<typeof GetAppointmentResponse>
 > = async (req, res) => {
-  const key = req.params.key;
+  const [id, nonce] = req.parsedParam.key!;
 
-  const data = await appointmentService.getAppointment(key);
+  const data = await appointmentService.getAppointment(id, nonce);
   if (data === null) {
     return res.sendStatus(404);
   }
 
-  const encoded = GetAppointmentResponse.encode({
-    ...data,
-    tags: data.tags.map((x) => ({ ...x, id: x.id.toString() })),
-    participants: data.participants.map((x) => ({
-      ...x,
-      id: x.id.toString(),
-    })),
-  });
-  res.json(encoded);
+  res.json(GetAppointmentResponse.encode(data));
 };
 
 export const updateAppointment: RequestHandler<
@@ -60,10 +52,11 @@ export const updateAppointment: RequestHandler<
   unknown,
   z.infer<typeof UpdateAppointmentRequest>
 > = async (req, res) => {
-  const key = req.params.key;
+  const [id, nonce] = req.parsedParam.key!;
 
   await appointmentService.updateAppointment(
-    key,
+    id,
+    nonce,
     req.body.name,
     LocalDate.from(nativeJs(req.body.startDate)),
     LocalDate.from(nativeJs(req.body.endDate)),
@@ -76,8 +69,8 @@ export const deleteAppointment: RequestHandler<{ key: string }> = async (
   req,
   res
 ) => {
-  const key = req.params.key;
+  const [id, nonce] = req.parsedParam.key!;
 
-  await appointmentService.deleteAppointment(key);
+  await appointmentService.deleteAppointment(id, nonce);
   res.sendStatus(200);
 };

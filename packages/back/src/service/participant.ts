@@ -2,21 +2,22 @@ import {
   participantRepository,
   type IParticipantRepository,
 } from '../repository/participant.ts';
-import { decomposeKey } from './appointment.ts';
 
 export interface IParticipantService {
   /**
    * 약속에 새로운 참가자를 추가함
    *
-   * @param appointmentKey 참가자를 추가할 약속의 key값
+   * @param appointmentId 참가자를 추가할 약속의 ID
+   * @param nonce 해당 약속의 nonce
    * @param name 이름
    *
    * @returns 새로 생성된 참가자 ID. 약속을 찾을 수 없다면 null.
    */
   createParticipant(
-    appointmentKey: string,
+    appointmentId: bigint,
+    nonce: number,
     name: string
-  ): Promise<string | null>;
+  ): Promise<bigint | null>;
 
   /**
    * 참가자 이름을 변경함
@@ -24,12 +25,12 @@ export interface IParticipantService {
    * @param id 갱신할 참가자 ID
    * @param name 변경할 이름
    */
-  updateParticipant(id: string, name: string): Promise<void>;
+  updateParticipant(id: bigint, name: string): Promise<void>;
 
   /**
    * 약속을 삭제함
    */
-  deleteParticipant(id: string): Promise<void>;
+  deleteParticipant(id: bigint): Promise<void>;
 }
 
 export class ParticipantService implements IParticipantService {
@@ -40,35 +41,28 @@ export class ParticipantService implements IParticipantService {
   }
 
   async createParticipant(
-    appointmentKey: string,
+    appointmentId: bigint,
+    nonce: number,
     name: string
-  ): Promise<string | null> {
-    const { id, nonce } = decomposeKey(appointmentKey);
-
-    const data = await this.repository.addParticipant(id, nonce, name);
+  ): Promise<bigint | null> {
+    const data = await this.repository.addParticipant(
+      appointmentId,
+      nonce,
+      name
+    );
     if (!data) {
       return null;
     }
 
-    return data.id.toString();
+    return data.id;
   }
 
-  async updateParticipant(id: string, name: string): Promise<void> {
-    const intId = parseInt(id);
-    if (isNaN(intId)) {
-      throw new Error('invalid id');
-    }
-
-    await this.repository.updateParticipant(intId, name);
+  async updateParticipant(id: bigint, name: string): Promise<void> {
+    await this.repository.updateParticipant(id, name);
   }
 
-  async deleteParticipant(id: string): Promise<void> {
-    const intId = parseInt(id);
-    if (isNaN(intId)) {
-      throw new Error('invalid id');
-    }
-
-    await this.repository.deleteParticipant(intId);
+  async deleteParticipant(id: bigint): Promise<void> {
+    await this.repository.deleteParticipant(id);
   }
 }
 

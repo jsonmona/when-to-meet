@@ -35,7 +35,7 @@ export interface IAppointmentRepository {
    *
    * @returns 약속 정보
    */
-  getAppointment(id: number, nonce: number): Promise<AppointmentInfo | null>;
+  getAppointment(id: bigint, nonce: number): Promise<AppointmentInfo | null>;
 
   /**
    * 약속의 기본 정보를 업데이트함
@@ -44,7 +44,7 @@ export interface IAppointmentRepository {
    * @returns 업데이트된 약속 값
    */
   updateAppointment(
-    id: number,
+    id: bigint,
     nonce: number,
     updates: Omit<AppointmentUpdateInput, 'nonce'>
   ): Promise<void>;
@@ -52,16 +52,20 @@ export interface IAppointmentRepository {
   /**
    * 약속을 삭제함
    */
-  deleteAppointment(id: number, nonce: number): Promise<void>;
+  deleteAppointment(id: bigint, nonce: number): Promise<void>;
 
   /**
    * 기존 태그를 삭제하고 새로 태그를 붙임
    *
    * @param id 수정할 약속의 ID
    * @param nonce 수정할 약속의 nonce값
-   * @param tagIds 태그 ID 배열
+   * @param tagNames 태그 ID 배열
    */
-  updateTags(id: number, nonce: number, tagIds: number[]): Promise<void>;
+  updateTagsByName(
+    id: bigint,
+    nonce: number,
+    tagNames: string[]
+  ): Promise<void>;
 }
 
 export class AppointmentRepository implements IAppointmentRepository {
@@ -91,7 +95,7 @@ export class AppointmentRepository implements IAppointmentRepository {
   }
 
   async getAppointment(
-    id: number,
+    id: bigint,
     nonce: number
   ): Promise<AppointmentInfo | null> {
     const data = await prisma.appointment.findUnique({
@@ -105,12 +109,7 @@ export class AppointmentRepository implements IAppointmentRepository {
         },
         tags: {
           select: {
-            tag: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
+            name: true,
           },
         },
       },
@@ -125,12 +124,12 @@ export class AppointmentRepository implements IAppointmentRepository {
       startDate: data.startDate,
       endDate: data.endDate,
       participants: data.participants,
-      tags: data.tags.map((x) => x.tag),
+      tags: data.tags.map((x) => x.name),
     };
   }
 
   async updateAppointment(
-    id: number,
+    id: bigint,
     nonce: number,
     updates: Omit<AppointmentUpdateInput, 'nonce'>
   ): Promise<void> {
@@ -140,28 +139,34 @@ export class AppointmentRepository implements IAppointmentRepository {
     });
   }
 
-  async deleteAppointment(id: number, nonce: number): Promise<void> {
+  async deleteAppointment(id: bigint, nonce: number): Promise<void> {
     await prisma.appointment.delete({
       where: { id, nonce },
     });
   }
 
-  async updateTags(id: number, nonce: number, tagIds: number[]): Promise<void> {
+  async updateTagsByName(
+    id: bigint,
+    nonce: number,
+    tagNames: string[]
+  ): Promise<void> {
     await prisma.$transaction(async (tx) => {
-      //TODO: Handle error
-      await tx.appointment.findUniqueOrThrow({
+      const tagIds = await tx.tag.findMany({
+        select: { id: true },
+        where: {
+          name: { in: tagNames },
+        },
+      });
+      await tx.appointment.update({
         where: {
           id,
           nonce,
         },
-      });
-      await tx.tagsOnAppointments.deleteMany({
-        where: {
-          appointmentId: id,
+        data: {
+          tags: {
+            set: tagIds,
+          },
         },
-      });
-      await tx.tagsOnAppointments.createMany({
-        data: tagIds.map((tagId) => ({ appointmentId: id, tagId })),
       });
     });
   }

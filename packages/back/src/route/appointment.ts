@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { decodeZod } from '../middleware/decodeZod.ts';
+import { parsePathParam } from '../middleware/path.ts';
 import {
   countAllAppointments,
   createAppointment,
@@ -18,13 +19,19 @@ const router = Router();
 
 router.get('/count', countAllAppointments);
 router.post('/', decodeZod(CreateAppointmentRequest), createAppointment);
-router.get('/:key', getAppointment);
-router.put('/:key', decodeZod(UpdateAppointmentRequest), updateAppointment);
-router.delete('/:key', deleteAppointment);
+router.get('/:key', parsePathParam, getAppointment);
+router.put(
+  '/:key',
+  parsePathParam,
+  decodeZod(UpdateAppointmentRequest),
+  updateAppointment
+);
+router.delete('/:key', parsePathParam, deleteAppointment);
 
-router.get('/:key/calendar/:year/:month', getCalendarMonth);
+router.get('/:key/calendar/:year/:month', parsePathParam, getCalendarMonth);
 router.put(
   '/:key/calendar',
+  parsePathParam,
   decodeZod(UpdateAppointmentCalendarRequest),
   updateCalendar
 );

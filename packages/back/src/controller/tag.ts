@@ -10,10 +10,7 @@ export const searchTag: RequestHandler<
   const searchTerm = req.query.q?.toString() ?? '';
 
   const data = await tagService.searchTag(searchTerm, 10);
-  const tags = data.map((tag) => ({
-    id: tag.id.toString(),
-    name: tag.name,
-  }));
+  const tags = data.map((tag) => tag.name);
 
   res.json({ tags });
 };

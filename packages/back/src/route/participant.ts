@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { decodeZod } from '../middleware/decodeZod.ts';
+import { parsePathParam } from '../middleware/path.ts';
 import {
   createParticipant,
   deleteParticipant,
@@ -13,7 +14,12 @@ import {
 const router = Router();
 
 router.post('/', decodeZod(CreateParticipantRequest), createParticipant);
-router.put('/:id', decodeZod(UpdateParticipantRequest), updateParticipant);
-router.delete('/:id', deleteParticipant);
+router.put(
+  '/:id',
+  parsePathParam,
+  decodeZod(UpdateParticipantRequest),
+  updateParticipant
+);
+router.delete('/:id', parsePathParam, deleteParticipant);
 
 export { router as participantRouter };

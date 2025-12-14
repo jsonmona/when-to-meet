@@ -10,21 +10,8 @@ import type { AppointmentInfo } from '../model/appointment.ts';
 const randomBytesAsync = util.promisify(crypto.randomBytes);
 
 async function generateNonce() {
-  const bytes = await randomBytesAsync(8);
-  return bytes.readUInt8();
-}
-
-function composeKey({ id, nonce }: { id: number; nonce: number }) {
-  return `${id}-${nonce}`;
-}
-
-export function decomposeKey(key: string) {
-  const [id, nonce] = key.split('-');
-
-  return {
-    id: parseInt(id!),
-    nonce: parseInt(nonce!),
-  };
+  const bytes = await randomBytesAsync(16);
+  return bytes.readUInt16LE();
 }
 
 export interface IAppointmentService {
@@ -39,6 +26,7 @@ export interface IAppointmentService {
    * @param name 약속의 제목
    * @param startDate 시작날짜 (포함)
    * @param endDate 종료날짜 (포함)
+   * @param tagNames 태그 목록
    *
    * @returns 새로 생성된 약속의 key값
    */
@@ -46,34 +34,35 @@ export interface IAppointmentService {
     name: string,
     startDate: LocalDate,
     endDate: LocalDate,
-    tagIds: string[]
-  ): Promise<string>;
+    tagNames: string[]
+  ): Promise<{ id: bigint; nonce: number }>;
+
+  /**
+   * 약속의 nonce가 맞는지 확인함
+   */
+  validateNonce(id: bigint, nonce: number): Promise<boolean>;
 
   /**
    * 약속 기본정보를 불러옴
-   *
-   * @param key 약속의 key값
    */
-  getAppointment(key: string): Promise<AppointmentInfo | null>;
+  getAppointment(id: bigint, nonce: number): Promise<AppointmentInfo | null>;
 
   /**
    * 약속 기본사항을 갱신함
-   *
-   * @param key 약속의 key값
-   * @param updates 갱신할 내용
    */
   updateAppointment(
-    key: string,
+    id: bigint,
+    nonce: number,
     name: string,
     startDate: LocalDate,
     endDate: LocalDate,
-    tagIds: string[]
+    tagNames: string[]
   ): Promise<void>;
 
   /**
    * 약속을 삭제함
    */
-  deleteAppointment(key: string): Promise<void>;
+  deleteAppointment(id: bigint, nonce: number): Promise<void>;
 }
 
 export class AppointmentService implements IAppointmentService {
@@ -91,7 +80,7 @@ export class AppointmentService implements IAppointmentService {
     name: string,
     startDate: LocalDate,
     endDate: LocalDate,
-    tagIds: string[]
+    tagNames: string[]
   ) {
     const data = await this.repository.createAppointment(
       await generateNonce(),
@@ -99,44 +88,42 @@ export class AppointmentService implements IAppointmentService {
       convert(startDate).toDate(),
       convert(endDate).toDate()
     );
-    await this.repository.updateTags(
-      data.id,
-      data.nonce,
-      tagIds.map((x) => parseInt(x)).filter((x) => !isNaN(x))
-    );
-
-    return composeKey(data);
+    await this.repository.updateTagsByName(data.id, data.nonce, tagNames);
+    return data;
   }
 
-  async getAppointment(key: string): Promise<AppointmentInfo | null> {
-    const { id, nonce } = decomposeKey(key);
+  async validateNonce(id: bigint, nonce: number): Promise<boolean> {
+    try {
+      return (await this.repository.getAppointment(id, nonce)) !== null;
+    } catch (e) {
+      return false;
+    }
+  }
 
+  async getAppointment(
+    id: bigint,
+    nonce: number
+  ): Promise<AppointmentInfo | null> {
     return await this.repository.getAppointment(id, nonce);
   }
 
   async updateAppointment(
-    key: string,
+    id: bigint,
+    nonce: number,
     name: string,
     startDate: LocalDate,
     endDate: LocalDate,
-    tagIds: string[]
+    tagNames: string[]
   ) {
-    const { id, nonce } = decomposeKey(key);
-
     await this.repository.updateAppointment(id, nonce, {
       name: name,
       startDate: convert(startDate).toDate(),
       endDate: convert(endDate).toDate(),
     });
-    await this.repository.updateTags(
-      id,
-      nonce,
-      tagIds.map((x) => parseInt(x)).filter((x) => !isNaN(x))
-    );
+    await this.repository.updateTagsByName(id, nonce, tagNames);
   }
 
-  async deleteAppointment(key: string) {
-    const { id, nonce } = decomposeKey(key);
+  async deleteAppointment(id: bigint, nonce: number) {
     await this.repository.deleteAppointment(id, nonce);
   }
 }

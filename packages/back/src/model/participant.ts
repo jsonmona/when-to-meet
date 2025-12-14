@@ -1,4 +1,4 @@
 export interface ParticipantInfo {
-  id: number;
+  id: bigint;
   name: string;
 }

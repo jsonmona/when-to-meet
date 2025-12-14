@@ -12,8 +12,11 @@ export const createParticipant: RequestHandler<
   z.input<typeof CreateParticipantResponse>,
   z.infer<typeof CreateParticipantRequest>
 > = async (req, res) => {
+  const [appointmentId, nonce] = req.body.appointmentKey;
+
   const id = await participantService.createParticipant(
-    req.body.appointmentKey,
+    appointmentId,
+    nonce,
     req.body.name
   );
 
@@ -21,7 +24,7 @@ export const createParticipant: RequestHandler<
     return res.sendStatus(404);
   }
 
-  res.json({ id });
+  res.json(CreateParticipantResponse.encode({ id }));
 };
 
 export const updateParticipant: RequestHandler<
@@ -29,7 +32,7 @@ export const updateParticipant: RequestHandler<
   unknown,
   z.infer<typeof UpdateParticipantRequest>
 > = async (req, res) => {
-  const id = req.params.id;
+  const id = req.parsedParam.id!;
 
   await participantService.updateParticipant(id, req.body.name);
   res.sendStatus(200);
@@ -39,7 +42,7 @@ export const deleteParticipant: RequestHandler<{ id: string }> = async (
   req,
   res
 ) => {
-  const id = req.params.id;
+  const id = req.parsedParam.id!;
 
   await participantService.deleteParticipant(id);
   res.sendStatus(200);

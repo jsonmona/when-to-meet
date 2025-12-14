@@ -6,6 +6,7 @@ export interface AppointmentInfo {
   startDate: Date;
   endDate: Date;
 
-  tags: TagInfo[];
+  /** Tag.name만 기록됨 */
+  tags: string[];
   participants: ParticipantInfo[];
 }

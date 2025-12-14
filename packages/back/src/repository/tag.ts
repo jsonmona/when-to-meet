@@ -20,7 +20,7 @@ export class TagRepository implements ITagRepository {
     //TODO: 많이 사용한 순으로 정렬하면 좋을듯
     return await prisma.tag.findMany({
       where: {
-        name: {
+        nameSearch: {
           startsWith: searchTerm,
         },
       },
