@@ -31,7 +31,7 @@ $ docker-compose up -d
 ```
 
 ## 프로젝트 설계 및 기술스택
-[DESIGN.md](DESGIN.md) 파일을 참고해주세요.
+[DESIGN.md](DESIGN.md) 파일을 참고해주세요.
 
 ## 라이선스
 [LICENSE.txt](LICENSE.txt) 파일을 참고해주세요.
