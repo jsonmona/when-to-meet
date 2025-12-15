@@ -1,0 +1,6 @@
+**/*.html
+**/*.md
+**/*.json
+**/*.config.*
+
+src/prisma-generated

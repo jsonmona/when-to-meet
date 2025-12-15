@@ -43,14 +43,21 @@ export const updateCalendar: RequestHandler<
 };
 
 /**
- * 날짜순으로 되어있는 쌍 데이터를 날짜별로 정리함 
+ * 날짜순으로 되어있는 쌍 데이터를 날짜별로 정리함
  */
-function organizeMarkPair(year: number, month: number, pairs: ParticipantTagPair[]): [bigint, string][][] {
+function organizeMarkPair(
+  year: number,
+  month: number,
+  pairs: ParticipantTagPair[]
+): [bigint, string][][] {
   const output: [bigint, string][][] = [[]];
   let date = LocalDate.of(year, month, 1);
 
-  for (const {calendarDate, participantId, tag} of pairs) {
-    while (date.dayOfMonth() < calendarDate.getDate() && date.monthValue() == month) {
+  for (const { calendarDate, participantId, tag } of pairs) {
+    while (
+      date.dayOfMonth() < calendarDate.getDate() &&
+      date.monthValue() == month
+    ) {
       output.push([]);
       date = date.plusDays(1);
     }
@@ -59,8 +66,8 @@ function organizeMarkPair(year: number, month: number, pairs: ParticipantTagPair
   }
 
   while (date.monthValue() == month) {
-      output.push([]);
-      date = date.plusDays(1);
+    output.push([]);
+    date = date.plusDays(1);
   }
 
   return output;
