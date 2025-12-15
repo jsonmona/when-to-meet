@@ -19,10 +19,6 @@ COPY . .
 
 RUN npm install
 
-# Generate Prisma Client
-WORKDIR /app/packages/back
-RUN npx prisma generate
-
 # Build frontend
 WORKDIR /app/packages/front
 RUN npm run build
