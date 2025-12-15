@@ -18,7 +18,7 @@ export const appointmentKey = z.codec(
         const id = view.getBigUint64(0, true);
         const nonce = view.getUint16(8, true);
         return [id, nonce];
-      } catch (err: any) {
+      } catch (err) {
         ctx.issues.push({
           code: 'invalid_format',
           format: 'regex',

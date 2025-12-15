@@ -6,7 +6,8 @@
   "type": "module",
   "prettier": "@when-to-meet/prettier-config",
   "scripts": {
-    "lint": "tsc --noEmit"
+    "format": "prettier --write .",
+    "lint": "tsc --noEmit && eslint ."
   },
   "keywords": [],
   "author": "",
