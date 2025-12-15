@@ -7,6 +7,7 @@ services:
     ports:
       - "3000:3000"
     environment:
+      - REDIS_URL=redis://redis
       - DATABASE_URL=mysql://devuser:devpassword@db:3306/whentomeet
       - DATABASE_USER=devuser
       - DATABASE_PASSWORD=devpassword
@@ -15,6 +16,11 @@ services:
       - DATABASE_PORT=3306
     depends_on:
       - db
+    restart: always
+
+  redis:
+    image: redis:8
+    container_name: when-to-meet-redis
     restart: always
 
   db:

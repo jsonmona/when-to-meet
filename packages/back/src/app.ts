@@ -6,12 +6,14 @@ import { createClient } from 'redis';
 import cookieParser from 'cookie-parser';
 import csrf from 'csurf';
 
-const redisClient = createClient();
+const redisClient = createClient({
+  url: process.env.REDIS_URL || 'redis://localhost',
+});
 await redisClient.connect();
 
 const redisStore = new RedisStore({
   client: redisClient,
-  prefix: 'myapp:',
+  prefix: 'whentomeet:',
 });
 
 const app = express();
