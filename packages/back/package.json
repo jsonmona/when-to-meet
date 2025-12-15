@@ -18,15 +18,19 @@
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.1.0",
     "@prisma/client": "^7.1.0",
+    "connect-redis": "^9.0.0",
     "dotenv": "^17.2.3",
     "es-hangul": "^2.3.8",
     "express": "^5.2.1",
+    "express-session": "^1.18.2",
     "js-joda": "^1.10.1",
     "mariadb": "^3.4.5",
-    "prisma": "^7.1.0"
+    "prisma": "^7.1.0",
+    "redis": "^5.10.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
+    "@types/express-session": "^1.18.2",
     "@types/node": "^24.10.3",
     "@typescript-eslint/eslint-plugin": "^8.49.0",
     "@typescript-eslint/parser": "^8.49.0",
