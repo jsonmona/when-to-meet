@@ -13,21 +13,23 @@ model Appointment {
   name      String   @db.VarChar(80)
   startDate DateTime @db.Date
   endDate   DateTime @db.Date
+  createdBy BigInt?
+  updatedBy BigInt?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   participants Participant[]
   tags         Tag[]
+  createUser   User?         @relation(name: "appointment_creator", fields: [createdBy], references: [userId])
+  updateUser   User?         @relation(name: "appointment_updator", fields: [updatedBy], references: [userId])
 
   @@map("appointment")
 }
 
 model Tag {
-  id         BigInt   @id @default(autoincrement())
-  name       String   @unique @db.VarChar(30)
-  nameSearch String   @db.VarChar(90)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id         BigInt @id @default(autoincrement())
+  name       String @unique @db.VarChar(30)
+  nameSearch String @db.VarChar(90)
 
   participantMarks ParticipantMark[]
   appointments     Appointment[]
@@ -69,6 +71,26 @@ model ParticipantMark {
   tag         Tag         @relation(fields: [tagId], references: [id])
 
   @@id([participantId, tagId, calendarDate])
-
   @@map("participant_mark")
+}
+
+model User {
+  userId    BigInt @id @default(autoincrement())
+  privilege Int    @db.SmallInt
+
+  loginProviderCode   LoginProviderCode?
+  createdAppointments Appointment[]      @relation(name: "appointment_creator")
+  updatedAppointments Appointment[]      @relation(name: "appointment_updator")
+
+  @@map("user")
+}
+
+// 보안코드 이용한 로그인 제공자
+model LoginProviderCode {
+  userId BigInt @id
+  code   BigInt @unique
+
+  user User @relation(fields: [userId], references: [userId])
+
+  @@map("login_provider_code")
 }

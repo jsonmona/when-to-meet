@@ -388,7 +388,9 @@ export const ModelName = {
   Tag: 'Tag',
   DefaultTag: 'DefaultTag',
   Participant: 'Participant',
-  ParticipantMark: 'ParticipantMark'
+  ParticipantMark: 'ParticipantMark',
+  User: 'User',
+  LoginProviderCode: 'LoginProviderCode'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -404,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "appointment" | "tag" | "defaultTag" | "participant" | "participantMark"
+    modelProps: "appointment" | "tag" | "defaultTag" | "participant" | "participantMark" | "user" | "loginProviderCode"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -738,6 +740,138 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    User: {
+      payload: Prisma.$UserPayload<ExtArgs>
+      fields: Prisma.UserFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        findFirst: {
+          args: Prisma.UserFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        findMany: {
+          args: Prisma.UserFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
+        }
+        create: {
+          args: Prisma.UserCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        createMany: {
+          args: Prisma.UserCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.UserDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        update: {
+          args: Prisma.UserUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.UserUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
+        }
+        aggregate: {
+          args: Prisma.UserAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUser>
+        }
+        groupBy: {
+          args: Prisma.UserGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    LoginProviderCode: {
+      payload: Prisma.$LoginProviderCodePayload<ExtArgs>
+      fields: Prisma.LoginProviderCodeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LoginProviderCodeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginProviderCodePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LoginProviderCodeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginProviderCodePayload>
+        }
+        findFirst: {
+          args: Prisma.LoginProviderCodeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginProviderCodePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LoginProviderCodeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginProviderCodePayload>
+        }
+        findMany: {
+          args: Prisma.LoginProviderCodeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginProviderCodePayload>[]
+        }
+        create: {
+          args: Prisma.LoginProviderCodeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginProviderCodePayload>
+        }
+        createMany: {
+          args: Prisma.LoginProviderCodeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.LoginProviderCodeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginProviderCodePayload>
+        }
+        update: {
+          args: Prisma.LoginProviderCodeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginProviderCodePayload>
+        }
+        deleteMany: {
+          args: Prisma.LoginProviderCodeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LoginProviderCodeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.LoginProviderCodeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LoginProviderCodePayload>
+        }
+        aggregate: {
+          args: Prisma.LoginProviderCodeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLoginProviderCode>
+        }
+        groupBy: {
+          args: Prisma.LoginProviderCodeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LoginProviderCodeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LoginProviderCodeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LoginProviderCodeCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -783,6 +917,8 @@ export const AppointmentScalarFieldEnum = {
   name: 'name',
   startDate: 'startDate',
   endDate: 'endDate',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -793,9 +929,7 @@ export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[key
 export const TagScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  nameSearch: 'nameSearch',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  nameSearch: 'nameSearch'
 } as const
 
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
@@ -831,12 +965,36 @@ export const ParticipantMarkScalarFieldEnum = {
 export type ParticipantMarkScalarFieldEnum = (typeof ParticipantMarkScalarFieldEnum)[keyof typeof ParticipantMarkScalarFieldEnum]
 
 
+export const UserScalarFieldEnum = {
+  userId: 'userId',
+  privilege: 'privilege'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const LoginProviderCodeScalarFieldEnum = {
+  userId: 'userId',
+  code: 'code'
+} as const
+
+export type LoginProviderCodeScalarFieldEnum = (typeof LoginProviderCodeScalarFieldEnum)[keyof typeof LoginProviderCodeScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 export const AppointmentOrderByRelevanceFieldEnum = {
@@ -1001,6 +1159,8 @@ export type GlobalOmitConfig = {
   defaultTag?: Prisma.DefaultTagOmit
   participant?: Prisma.ParticipantOmit
   participantMark?: Prisma.ParticipantMarkOmit
+  user?: Prisma.UserOmit
+  loginProviderCode?: Prisma.LoginProviderCodeOmit
 }
 
 /* Types for Logging */

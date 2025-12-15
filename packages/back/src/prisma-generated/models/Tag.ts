@@ -38,24 +38,18 @@ export type TagMinAggregateOutputType = {
   id: bigint | null
   name: string | null
   nameSearch: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
 }
 
 export type TagMaxAggregateOutputType = {
   id: bigint | null
   name: string | null
   nameSearch: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
 }
 
 export type TagCountAggregateOutputType = {
   id: number
   name: number
   nameSearch: number
-  createdAt: number
-  updatedAt: number
   _all: number
 }
 
@@ -72,24 +66,18 @@ export type TagMinAggregateInputType = {
   id?: true
   name?: true
   nameSearch?: true
-  createdAt?: true
-  updatedAt?: true
 }
 
 export type TagMaxAggregateInputType = {
   id?: true
   name?: true
   nameSearch?: true
-  createdAt?: true
-  updatedAt?: true
 }
 
 export type TagCountAggregateInputType = {
   id?: true
   name?: true
   nameSearch?: true
-  createdAt?: true
-  updatedAt?: true
   _all?: true
 }
 
@@ -183,8 +171,6 @@ export type TagGroupByOutputType = {
   id: bigint
   name: string
   nameSearch: string
-  createdAt: Date
-  updatedAt: Date
   _count: TagCountAggregateOutputType | null
   _avg: TagAvgAggregateOutputType | null
   _sum: TagSumAggregateOutputType | null
@@ -214,8 +200,6 @@ export type TagWhereInput = {
   id?: Prisma.BigIntFilter<"Tag"> | bigint | number
   name?: Prisma.StringFilter<"Tag"> | string
   nameSearch?: Prisma.StringFilter<"Tag"> | string
-  createdAt?: Prisma.DateTimeFilter<"Tag"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Tag"> | Date | string
   participantMarks?: Prisma.ParticipantMarkListRelationFilter
   appointments?: Prisma.AppointmentListRelationFilter
   defaultTag?: Prisma.XOR<Prisma.DefaultTagNullableScalarRelationFilter, Prisma.DefaultTagWhereInput> | null
@@ -225,8 +209,6 @@ export type TagOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   nameSearch?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   participantMarks?: Prisma.ParticipantMarkOrderByRelationAggregateInput
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
   defaultTag?: Prisma.DefaultTagOrderByWithRelationInput
@@ -240,8 +222,6 @@ export type TagWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.TagWhereInput[]
   NOT?: Prisma.TagWhereInput | Prisma.TagWhereInput[]
   nameSearch?: Prisma.StringFilter<"Tag"> | string
-  createdAt?: Prisma.DateTimeFilter<"Tag"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Tag"> | Date | string
   participantMarks?: Prisma.ParticipantMarkListRelationFilter
   appointments?: Prisma.AppointmentListRelationFilter
   defaultTag?: Prisma.XOR<Prisma.DefaultTagNullableScalarRelationFilter, Prisma.DefaultTagWhereInput> | null
@@ -251,8 +231,6 @@ export type TagOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   nameSearch?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   _count?: Prisma.TagCountOrderByAggregateInput
   _avg?: Prisma.TagAvgOrderByAggregateInput
   _max?: Prisma.TagMaxOrderByAggregateInput
@@ -267,16 +245,12 @@ export type TagScalarWhereWithAggregatesInput = {
   id?: Prisma.BigIntWithAggregatesFilter<"Tag"> | bigint | number
   name?: Prisma.StringWithAggregatesFilter<"Tag"> | string
   nameSearch?: Prisma.StringWithAggregatesFilter<"Tag"> | string
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Tag"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Tag"> | Date | string
 }
 
 export type TagCreateInput = {
   id?: bigint | number
   name: string
   nameSearch: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
   participantMarks?: Prisma.ParticipantMarkCreateNestedManyWithoutTagInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutTagsInput
   defaultTag?: Prisma.DefaultTagCreateNestedOneWithoutTagInput
@@ -286,8 +260,6 @@ export type TagUncheckedCreateInput = {
   id?: bigint | number
   name: string
   nameSearch: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
   participantMarks?: Prisma.ParticipantMarkUncheckedCreateNestedManyWithoutTagInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutTagsInput
   defaultTag?: Prisma.DefaultTagUncheckedCreateNestedOneWithoutTagInput
@@ -297,8 +269,6 @@ export type TagUpdateInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameSearch?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participantMarks?: Prisma.ParticipantMarkUpdateManyWithoutTagNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutTagsNestedInput
   defaultTag?: Prisma.DefaultTagUpdateOneWithoutTagNestedInput
@@ -308,8 +278,6 @@ export type TagUncheckedUpdateInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameSearch?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participantMarks?: Prisma.ParticipantMarkUncheckedUpdateManyWithoutTagNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutTagsNestedInput
   defaultTag?: Prisma.DefaultTagUncheckedUpdateOneWithoutTagNestedInput
@@ -319,24 +287,18 @@ export type TagCreateManyInput = {
   id?: bigint | number
   name: string
   nameSearch: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type TagUpdateManyMutationInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameSearch?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TagUncheckedUpdateManyInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameSearch?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TagListRelationFilter = {
@@ -359,8 +321,6 @@ export type TagCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   nameSearch?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type TagAvgOrderByAggregateInput = {
@@ -371,16 +331,12 @@ export type TagMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   nameSearch?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type TagMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   nameSearch?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type TagSumOrderByAggregateInput = {
@@ -462,8 +418,6 @@ export type TagCreateWithoutAppointmentsInput = {
   id?: bigint | number
   name: string
   nameSearch: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
   participantMarks?: Prisma.ParticipantMarkCreateNestedManyWithoutTagInput
   defaultTag?: Prisma.DefaultTagCreateNestedOneWithoutTagInput
 }
@@ -472,8 +426,6 @@ export type TagUncheckedCreateWithoutAppointmentsInput = {
   id?: bigint | number
   name: string
   nameSearch: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
   participantMarks?: Prisma.ParticipantMarkUncheckedCreateNestedManyWithoutTagInput
   defaultTag?: Prisma.DefaultTagUncheckedCreateNestedOneWithoutTagInput
 }
@@ -506,16 +458,12 @@ export type TagScalarWhereInput = {
   id?: Prisma.BigIntFilter<"Tag"> | bigint | number
   name?: Prisma.StringFilter<"Tag"> | string
   nameSearch?: Prisma.StringFilter<"Tag"> | string
-  createdAt?: Prisma.DateTimeFilter<"Tag"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Tag"> | Date | string
 }
 
 export type TagCreateWithoutDefaultTagInput = {
   id?: bigint | number
   name: string
   nameSearch: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
   participantMarks?: Prisma.ParticipantMarkCreateNestedManyWithoutTagInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutTagsInput
 }
@@ -524,8 +472,6 @@ export type TagUncheckedCreateWithoutDefaultTagInput = {
   id?: bigint | number
   name: string
   nameSearch: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
   participantMarks?: Prisma.ParticipantMarkUncheckedCreateNestedManyWithoutTagInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutTagsInput
 }
@@ -550,8 +496,6 @@ export type TagUpdateWithoutDefaultTagInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameSearch?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participantMarks?: Prisma.ParticipantMarkUpdateManyWithoutTagNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutTagsNestedInput
 }
@@ -560,8 +504,6 @@ export type TagUncheckedUpdateWithoutDefaultTagInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameSearch?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participantMarks?: Prisma.ParticipantMarkUncheckedUpdateManyWithoutTagNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutTagsNestedInput
 }
@@ -570,8 +512,6 @@ export type TagCreateWithoutParticipantMarksInput = {
   id?: bigint | number
   name: string
   nameSearch: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
   appointments?: Prisma.AppointmentCreateNestedManyWithoutTagsInput
   defaultTag?: Prisma.DefaultTagCreateNestedOneWithoutTagInput
 }
@@ -580,8 +520,6 @@ export type TagUncheckedCreateWithoutParticipantMarksInput = {
   id?: bigint | number
   name: string
   nameSearch: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutTagsInput
   defaultTag?: Prisma.DefaultTagUncheckedCreateNestedOneWithoutTagInput
 }
@@ -606,8 +544,6 @@ export type TagUpdateWithoutParticipantMarksInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameSearch?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointments?: Prisma.AppointmentUpdateManyWithoutTagsNestedInput
   defaultTag?: Prisma.DefaultTagUpdateOneWithoutTagNestedInput
 }
@@ -616,8 +552,6 @@ export type TagUncheckedUpdateWithoutParticipantMarksInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameSearch?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutTagsNestedInput
   defaultTag?: Prisma.DefaultTagUncheckedUpdateOneWithoutTagNestedInput
 }
@@ -626,8 +560,6 @@ export type TagUpdateWithoutAppointmentsInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameSearch?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participantMarks?: Prisma.ParticipantMarkUpdateManyWithoutTagNestedInput
   defaultTag?: Prisma.DefaultTagUpdateOneWithoutTagNestedInput
 }
@@ -636,8 +568,6 @@ export type TagUncheckedUpdateWithoutAppointmentsInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameSearch?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   participantMarks?: Prisma.ParticipantMarkUncheckedUpdateManyWithoutTagNestedInput
   defaultTag?: Prisma.DefaultTagUncheckedUpdateOneWithoutTagNestedInput
 }
@@ -646,8 +576,6 @@ export type TagUncheckedUpdateManyWithoutAppointmentsInput = {
   id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   nameSearch?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -694,8 +622,6 @@ export type TagSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   id?: boolean
   name?: boolean
   nameSearch?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
   participantMarks?: boolean | Prisma.Tag$participantMarksArgs<ExtArgs>
   appointments?: boolean | Prisma.Tag$appointmentsArgs<ExtArgs>
   defaultTag?: boolean | Prisma.Tag$defaultTagArgs<ExtArgs>
@@ -708,11 +634,9 @@ export type TagSelectScalar = {
   id?: boolean
   name?: boolean
   nameSearch?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
 }
 
-export type TagOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "nameSearch" | "createdAt" | "updatedAt", ExtArgs["result"]["tag"]>
+export type TagOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "nameSearch", ExtArgs["result"]["tag"]>
 export type TagInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   participantMarks?: boolean | Prisma.Tag$participantMarksArgs<ExtArgs>
   appointments?: boolean | Prisma.Tag$appointmentsArgs<ExtArgs>
@@ -731,8 +655,6 @@ export type $TagPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     id: bigint
     name: string
     nameSearch: string
-    createdAt: Date
-    updatedAt: Date
   }, ExtArgs["result"]["tag"]>
   composites: {}
 }
@@ -1108,8 +1030,6 @@ export interface TagFieldRefs {
   readonly id: Prisma.FieldRef<"Tag", 'BigInt'>
   readonly name: Prisma.FieldRef<"Tag", 'String'>
   readonly nameSearch: Prisma.FieldRef<"Tag", 'String'>
-  readonly createdAt: Prisma.FieldRef<"Tag", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"Tag", 'DateTime'>
 }
     
 

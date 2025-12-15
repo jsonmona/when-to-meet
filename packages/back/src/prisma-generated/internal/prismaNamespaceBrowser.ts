@@ -55,7 +55,9 @@ export const ModelName = {
   Tag: 'Tag',
   DefaultTag: 'DefaultTag',
   Participant: 'Participant',
-  ParticipantMark: 'ParticipantMark'
+  ParticipantMark: 'ParticipantMark',
+  User: 'User',
+  LoginProviderCode: 'LoginProviderCode'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -80,6 +82,8 @@ export const AppointmentScalarFieldEnum = {
   name: 'name',
   startDate: 'startDate',
   endDate: 'endDate',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -90,9 +94,7 @@ export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[key
 export const TagScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  nameSearch: 'nameSearch',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  nameSearch: 'nameSearch'
 } as const
 
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
@@ -128,12 +130,36 @@ export const ParticipantMarkScalarFieldEnum = {
 export type ParticipantMarkScalarFieldEnum = (typeof ParticipantMarkScalarFieldEnum)[keyof typeof ParticipantMarkScalarFieldEnum]
 
 
+export const UserScalarFieldEnum = {
+  userId: 'userId',
+  privilege: 'privilege'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const LoginProviderCodeScalarFieldEnum = {
+  userId: 'userId',
+  code: 'code'
+} as const
+
+export type LoginProviderCodeScalarFieldEnum = (typeof LoginProviderCodeScalarFieldEnum)[keyof typeof LoginProviderCodeScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 export const AppointmentOrderByRelevanceFieldEnum = {

@@ -64,3 +64,13 @@ export type Participant = Prisma.ParticipantModel
  * 
  */
 export type ParticipantMark = Prisma.ParticipantMarkModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
+/**
+ * Model LoginProviderCode
+ * 
+ */
+export type LoginProviderCode = Prisma.LoginProviderCodeModel
