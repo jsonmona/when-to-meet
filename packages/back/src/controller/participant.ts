@@ -8,7 +8,7 @@ import {
 } from '@when-to-meet/api';
 
 export const createParticipant: RequestHandler<
-  {},
+  unknown,
   z.input<typeof CreateParticipantResponse>,
   z.infer<typeof CreateParticipantRequest>
 > = async (req, res) => {

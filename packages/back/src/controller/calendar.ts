@@ -13,7 +13,7 @@ export const getCalendarMonth: RequestHandler<
   z.input<typeof GetAppointmentCalendarMonthResponse>
 > = async (req, res) => {
   //TODO: nonce가 유효한지 체크하기
-  const [id, nonce] = req.parsedParam.key!;
+  const [id, _nonce] = req.parsedParam.key!;
   const year = parseInt(req.params.year);
   const month = parseInt(req.params.month);
 

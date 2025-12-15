@@ -11,7 +11,7 @@ import {
 } from '@when-to-meet/api';
 
 export const countAllAppointments: RequestHandler<
-  {},
+  unknown,
   z.input<typeof CountResponse>
 > = async (req, res) => {
   const count = await appointmentService.countAllAppointments();
@@ -19,7 +19,7 @@ export const countAllAppointments: RequestHandler<
 };
 
 export const createAppointment: RequestHandler<
-  {},
+  unknown,
   z.input<typeof CreateAppointmentResponse>,
   z.infer<typeof CreateAppointmentRequest>
 > = async (req, res) => {

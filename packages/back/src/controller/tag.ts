@@ -8,7 +8,7 @@ import {
 } from '@when-to-meet/api';
 
 export const defaultTag: RequestHandler<
-  {},
+  unknown,
   z.input<typeof TagDefaultResponse>
 > = async (req, res) => {
   const data = await tagService.defaultTag();
@@ -18,7 +18,7 @@ export const defaultTag: RequestHandler<
 };
 
 export const searchTag: RequestHandler<
-  {},
+  unknown,
   z.input<typeof TagSearchResponse>
 > = async (req, res) => {
   const searchTerm = req.query.q?.toString() ?? '';
@@ -30,7 +30,7 @@ export const searchTag: RequestHandler<
 };
 
 export const createTag: RequestHandler<
-  {},
+  unknown,
   unknown,
   z.infer<typeof TagCreateRequest>
 > = async (req, res) => {

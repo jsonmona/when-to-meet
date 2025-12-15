@@ -1,5 +1,4 @@
 import { prisma } from './prisma.ts';
-import type { ParticipantMarkModel } from '../prisma-generated/models.ts';
 import type { ParticipantTagPair } from '../model/calendar.ts';
 
 export interface IParticipantMarkRepository {
