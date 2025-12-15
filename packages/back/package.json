@@ -19,6 +19,8 @@
     "@prisma/adapter-mariadb": "^7.1.0",
     "@prisma/client": "^7.1.0",
     "connect-redis": "^9.0.0",
+    "cookie-parser": "^1.4.7",
+    "csurf": "^1.11.0",
     "dotenv": "^17.2.3",
     "es-hangul": "^2.3.8",
     "express": "^5.2.1",
@@ -29,6 +31,8 @@
     "redis": "^5.10.0"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/csurf": "^1.11.5",
     "@types/express": "^5.0.6",
     "@types/express-session": "^1.18.2",
     "@types/node": "^24.10.3",

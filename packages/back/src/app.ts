@@ -3,6 +3,8 @@ import { rootRouter } from './route/index.ts';
 import { RedisStore } from 'connect-redis';
 import session from 'express-session';
 import { createClient } from 'redis';
+import cookieParser from 'cookie-parser';
+import csrf from 'csurf';
 
 const redisClient = createClient();
 await redisClient.connect();
@@ -27,6 +29,8 @@ app.use(
     secret: 'when-to-meet-secret',
   })
 );
+app.use(cookieParser());
+app.use(csrf());
 app.use(prefix, rootRouter);
 
 // React SPA 처리
@@ -34,6 +38,7 @@ app.get(/^\/(?!api).*/, (req, res, next) => {
   if (req.path.startsWith(prefix)) {
     return next();
   }
+  res.cookie('_csrf', req.csrfToken());
   res.sendFile('index.html', { root: 'public' });
 });
 
