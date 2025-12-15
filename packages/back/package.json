@@ -7,7 +7,8 @@
   "prettier": "@when-to-meet/prettier-config",
   "scripts": {
     "dev": "node --watch src/app.ts",
-    "lint": "tsc --noEmit",
+    "format": "prettier --write .",
+    "lint": "tsc --noEmit && eslint .",
     "build": "tsc -b"
   },
   "keywords": [],
