@@ -12,6 +12,7 @@ import {
   Title,
   Box,
   Paper,
+  Modal,
 } from '@mantine/core';
 import {
   BsPencil,
@@ -44,6 +45,7 @@ export function ParticipantManager({
   onParticipantClick,
 }: ParticipantManagerProps) {
   const [newParticipantName, setNewParticipantName] = useState('');
+  const [deleteModalOpen, setDeleteModalOpen] = useState<string | null>(null);
   const { mutateAsync: addParticipant, isPending: isAdding } =
     useMutationAddParticipant(appointmentKey);
   const { mutateAsync: deleteParticipant, isPending: isDeleting } =
@@ -58,11 +60,16 @@ export function ParticipantManager({
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('정말 이 참여자를 삭제하시겠습니까?')) {
-      deleteParticipant(id);
-      if (editingParticipantId === id) {
+    setDeleteModalOpen(id);
+  };
+
+  const confirmDelete = () => {
+    if (deleteModalOpen) {
+      deleteParticipant(deleteModalOpen);
+      if (editingParticipantId === deleteModalOpen) {
         onParticipantClick(null);
       }
+      setDeleteModalOpen(null);
     }
   };
 
@@ -169,6 +176,22 @@ export function ParticipantManager({
           </Group>
         </form>
       </Stack>
+
+      <Modal
+        opened={deleteModalOpen !== null}
+        onClose={() => setDeleteModalOpen(null)}
+        title="참여자 삭제"
+      >
+        <Text mb="md">정말 이 참여자를 삭제하시겠습니까?</Text>
+        <Group justify="right">
+          <Button variant="subtle" onClick={() => setDeleteModalOpen(null)}>
+            취소
+          </Button>
+          <Button color="red" onClick={confirmDelete}>
+            삭제
+          </Button>
+        </Group>
+      </Modal>
     </Paper>
   );
 }

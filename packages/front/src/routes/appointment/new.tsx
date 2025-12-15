@@ -62,7 +62,7 @@ function NewAppointment() {
     if (form.values.tags === null && defaultTags.isSuccess) {
       form.setFieldValue('tags', defaultTags.data);
     }
-  }, [form.values.tags, defaultTags.isSuccess]);
+  }, [form, defaultTags.isSuccess, defaultTags.data]);
 
   const handleSubmit = (values: AppointmentFormValues) => {
     // 폼 검증시에 null이 아님을 체크했음

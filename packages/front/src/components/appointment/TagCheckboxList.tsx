@@ -48,44 +48,6 @@ export const TagCheckboxList = ({
   const isIndeterminate =
     selectedTags.length > 0 && selectedTags.length < allTags.length;
 
-  /**
-   * 개별 행을 렌더링하는 내부 컴포넌트 (스타일 및 클릭 영역 통합)
-   */
-  const SelectableRow = ({
-    label,
-    checked,
-    indeterminate,
-    icon,
-    onClick,
-  }: {
-    label: string;
-    checked: boolean;
-    indeterminate?: boolean;
-    icon: React.ReactNode;
-    onClick: () => void;
-  }) => (
-    <UnstyledButton onClick={onClick} className={styles.rowButton}>
-      <Group gap="sm" wrap="nowrap">
-        <Checkbox
-          checked={checked}
-          indeterminate={indeterminate}
-          readOnly
-          tabIndex={-1} // 탭 이동 시 버튼이 포커스를 받도록 설정
-          style={{ pointerEvents: 'none' }} // 체크박스 자체 클릭 방지 (버튼 클릭으로 처리)
-          aria-hidden="true"
-        />
-        <Group gap="xs" style={{ flex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', opacity: 0.6 }}>
-            {icon}
-          </div>
-          <Text size="sm" fw={500} style={{ lineHeight: 1 }}>
-            {label}
-          </Text>
-        </Group>
-      </Group>
-    </UnstyledButton>
-  );
-
   return (
     <Paper withBorder shadow="xs" radius="md" p="md" mb="md">
       <Title order={5} mb="sm" px="xs">
@@ -124,3 +86,41 @@ export const TagCheckboxList = ({
     </Paper>
   );
 };
+
+/**
+ * 개별 행을 렌더링하는 내부 컴포넌트 (스타일 및 클릭 영역 통합)
+ */
+const SelectableRow = ({
+  label,
+  checked,
+  indeterminate,
+  icon,
+  onClick,
+}: {
+  label: string;
+  checked: boolean;
+  indeterminate?: boolean;
+  icon: React.ReactNode;
+  onClick: () => void;
+}) => (
+  <UnstyledButton onClick={onClick} className={styles.rowButton}>
+    <Group gap="sm" wrap="nowrap">
+      <Checkbox
+        checked={checked}
+        indeterminate={indeterminate}
+        readOnly
+        tabIndex={-1} // 탭 이동 시 버튼이 포커스를 받도록 설정
+        style={{ pointerEvents: 'none' }} // 체크박스 자체 클릭 방지 (버튼 클릭으로 처리)
+        aria-hidden="true"
+      />
+      <Group gap="xs" style={{ flex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', opacity: 0.6 }}>
+          {icon}
+        </div>
+        <Text size="sm" fw={500} style={{ lineHeight: 1 }}>
+          {label}
+        </Text>
+      </Group>
+    </Group>
+  </UnstyledButton>
+);

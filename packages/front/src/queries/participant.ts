@@ -6,10 +6,7 @@ import {
   deleteParticipant,
   updateParticipant,
 } from '../apis/participant';
-import type {
-  CreateParticipantRequest,
-  UpdateParticipantRequest,
-} from '@when-to-meet/api';
+import type { CreateParticipantRequest } from '@when-to-meet/api';
 
 export const useMutationAddParticipant = (appointmentKey: string) =>
   useMutation({

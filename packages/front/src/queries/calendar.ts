@@ -15,7 +15,7 @@ export const useQueryCalendarMonth = (
 export const useMutationUpdateCalendar = (key: string) =>
   useMutation({
     mutationFn: updateCalendar,
-    onSuccess: (_, variables) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['appointment', key, 'calendar'],
       });
